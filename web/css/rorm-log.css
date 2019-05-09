@@ -1,0 +1,175 @@
+.main-div{
+    position:relative;
+    margin-left: 32%;
+    margin-top: 10%;
+    width: 500px;
+    height: 500px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.form {
+  position: relative;
+  z-index: 3;
+  background: #FFFFFF;
+  max-width: 500x;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  height: 60px;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 24px;
+}
+
+.form select {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  height: 60px;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 24px;
+}
+
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #ffbb00;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #777777;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form h2{
+    color:#777777;
+}
+.form .register-form {
+  display: none;
+}
+.container_ {
+  position: relative;
+  z-index: 1;
+  max-width: auto;
+  margin: 0 auto;
+}
+.container_:before, .container_:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container_ .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container_ .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container_ .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container_ .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container_ .info span .fa {
+  color: #EF3B3A;
+}
+
+.doors-right{
+    position: absolute;
+    width: 250px;
+    height: 650px;   
+    z-index: 10;
+    left: 0;
+    top: 0;
+    background: none repeat scroll 0 0 #ffbb00;
+    transition: .4s;
+}
+
+.doors-right h2{
+  float: right;
+  font-size: 60px;
+  color:white;
+  margin-top: 80%;
+}
+
+.doors-left{
+  position: absolute;
+  width: 250px;
+  height: 650px;   
+  z-index: 9;
+  right: 0;
+  top: 0;
+  background: none repeat scroll 0 0 #ffbb00;
+  transition: .4s;
+}
+
+.doors-left h2{
+  font-size: 60px;
+  color:white;
+  margin-top: 80%;
+}
+
+
+
+.login-page:hover .doors-right{
+  background: none repeat scroll 0 0 #ffbb00;
+  left: -50%;
+  position: absolute;
+  top: 0;
+  width: 250px;
+  transition: .4s;
+}
+
+.login-page:hover .doors-left{
+  background: none repeat scroll 0 0 #ffbb00;
+  right: -50%;
+  position: absolute;
+  top: 0;
+  width: 250px;
+  transition: .4s;
+}
+
+/* #doors-hidden{
+    position: absolute;
+    background: none repeat scroll 0 0 #ffbb00;
+    width: 100%;
+    height: 505px;   
+    z-index: 10;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition: .4s;
+}
