@@ -108,6 +108,16 @@ class SiteController extends Controller
         ]
     );
     }
+
+    public function actionOrder($id)
+    {
+        $products = Product::find()->where(['id_user'=> $id])->all();
+        return $this->render('order',
+        [
+            'products' => $products
+        ]);
+    }
+
     public function actionSettings($id)
     {
         if($id != Yii::$app->user->identity->id)
@@ -208,6 +218,13 @@ class SiteController extends Controller
         return $this->render('create_product', ['model'=>$model]);
     }
 
+    public function actionLock()
+    {
+         Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id=1')
+   ->execute();
+        return $this->redirect(['raiting']);
+
+    }
 
     public function actionRaiting()
     {
@@ -272,6 +289,8 @@ class SiteController extends Controller
 
         return $this->redirect(['view', 'id'=>Yii::$app->user->id]);
     }
+
+
 
     public function actionTalking()
     {
