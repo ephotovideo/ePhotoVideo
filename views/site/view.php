@@ -30,7 +30,7 @@ use yii\helpers\Html;
                                     <?php if(Yii::$app->user->id === $user_one->id): ?>
                                     <a class="add_to_cart_button" href="<?= Url::toRoute(['site/settings', 'id'=>Yii::$app->user->id]);?>">Налаштування сторінки</a>                                          
                                     <br>
-                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['site/settings', 'id'=>Yii::$app->user->id]);?>">Налаштування сторінки</a>                                          
+                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['site/order','id'=>Yii::$app->user->id]);?>">Мої замовлення</a>                                          
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -108,11 +108,13 @@ use yii\helpers\Html;
                                      <?php foreach($products as $product):?>
 
                                         <?php if(Yii::$app->user->id == $user_one->id): ?>
-                                            <?= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-default']) ?>
+                                            <?= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-danger']) ?>
                                         <?php endif; ?>  
 
                                         <h2><?= $product->name_product?></h2>
                                         <p><?= $product->price_product?></p>
+
+                                        <?= Html::a('Замовити', ['set-product', 'id' => $user_one->id], ['class' => 'btn btn btn-warning']) ?>
 
                                      <?php endforeach; ?>
                                 </div>

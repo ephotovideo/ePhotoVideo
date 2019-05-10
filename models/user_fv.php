@@ -176,6 +176,10 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     {
         return $this->hasMany(Product::className(), ['id_user' => 'id']);
     }
+    public function getOrder()
+    {
+        return $this->hasMany(Order::className(), ['user_check' => 'id']);
+    } 
     public function getComment_()
     {
         return $this->hasMany(Coment::className(), ['id_user' => 'id']);
