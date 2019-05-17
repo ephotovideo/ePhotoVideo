@@ -29,10 +29,12 @@ class AppAsset extends AssetBundle
         'css/owl.carousel.css',
         'css/style.css',
         'css/jquery-ui.css',
+        'css/admin.css',
         'css/vacancy.css',
         'css/responsive.css',
         'css/form-reg.css',
-        'css/raiting.css'
+        'css/raiting.css',
+
     ];
     public $js = [
         'js/owl.carousel.min.js',

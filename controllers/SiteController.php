@@ -23,7 +23,7 @@ use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
-     
+
     /**
      * {@inheritdoc}
      */
@@ -73,6 +73,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         return $this->render('index');
     }
 
@@ -96,7 +97,7 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $user_one = User_fv::findOne($id);
-       $contents = User_content::find()->where(['user_id'=> $id])->all();
+       $contents = User_content::find()->where(['user_id'=> $id])->all(); //select *from content where user_id= $id
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
         return $this->render('view',

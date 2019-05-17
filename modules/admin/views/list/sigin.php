@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class=" col-lg-12 col-md-12 col-sm-12">
     <div class="single-shop-product">
     <div class="product-upper">
-    <img id="img_float" width="300px" src=" " alt="">
     <div class="name_in_raiting">
         <h2><a  href="<?= Url::toRoute(['site/view', 'id'=>$user->id]);?>"><?= $user->username?></a></h2>
          <?php if($user->status == 1):?>

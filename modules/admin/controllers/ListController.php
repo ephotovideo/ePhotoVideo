@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\LoginForm;
@@ -8,23 +9,7 @@ use app\models\SignupForm;
 use app\models\User_fv;
 use yii\web\Controller;
 
-class AdminController extends Controller{
-//    public function actionLogin()
-//    {
-//        if (!Yii::$app->user->isGuest) {
-//            return $this->goHome();
-//        }
-//
-//        $model = new LoginForm();
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            return $this->goBack();
-//        }
-//
-//        $model->password = '';
-//        return $this->render('/admin/sigin', [
-//            'model' => $model,
-//        ]);
-//    }
+class ListController extends Controller{
 
     /**
      * Logout action.
