@@ -219,14 +219,6 @@ class SiteController extends Controller
         return $this->render('create_product', ['model'=>$model]);
     }
 
-    public function actionLock()
-    {
-         Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id=1')
-   ->execute();
-        return $this->redirect(['raiting']);
-
-    }
-
     public function actionRaiting()
     {
         $model = new Raiting;
