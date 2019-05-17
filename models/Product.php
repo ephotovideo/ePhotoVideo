@@ -19,6 +19,12 @@ class Product extends ActiveRecord{
     {
         return $this->hasOne(User_fv::className(), ['id' => 'id_user']);
     }  
+
+    public function getOrder()
+    {
+        return $this->hasMany(Order::className(), ['id_product' => 'id']);
+    } 
+    
     public function saveProduct($id)
     {
         $product = new Product;
@@ -27,10 +33,6 @@ class Product extends ActiveRecord{
         $product->price_product  = $this->price_product;
         return $product->save(false);
     }
-    public function getCity()
-    {
-    //    $sql = Vacancy::find()->andwhere(['location' => $this->location]);
-    //     return $sql;
-    }
+     
 }
 

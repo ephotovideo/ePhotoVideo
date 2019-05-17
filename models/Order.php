@@ -15,23 +15,23 @@ class Order extends ActiveRecord{
     }
     public function getUser_fv()
     {
-        return $this->hasOne(User_fv::className(), ['id' => 'id_user']);
+        return $this->hasOne(User_fv::className(), ['id' => 'user_check']);
     }
 
-    public function saveOrder($id)
+    public function getProduct()
     {
-        $vacan = new Vacancy;
-        $vacan->id_user = $id;
-        $vacan->location  =  $this->location;
-        $vacan->desciption  = $this->desciption;
-        $vacan->price  = $this->price;
-        $vacan->title  = $this->title;
-        return $vacan->save(false);
+        return $this->hasOne(Product::className(), ['id' => 'id_product']);
     }
-    public function getCity()
+
+    public function saveComent($user_check,$user_create)
     {
-       $sql = Vacancy::find()->andwhere(['location' => $this->location]);
-        return $sql;
+
+        $order = new Order;
+        $order->user_check = $user_check;
+        $coment->user_create =  $user_create;
+        //$coment->text = $this->text;
+        return $coment->save(false);
     }
+
 }
 
