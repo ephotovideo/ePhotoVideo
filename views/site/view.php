@@ -112,9 +112,9 @@ use yii\helpers\Html;
                                         <?php endif; ?>  
 
                                         <h2><?= $product->name_product?></h2>
-                                        <p><?= $product->price_product?></p>
-
-                                        <?= Html::a('Замовити', ['set-product', 'id' => $user_one->id], ['class' => 'btn btn btn-warning']) ?>
+                                        <p>$<?= $product->price_product?></p>
+                                        <img src="<?= $product->getImage_Product()?>" width="15%" >
+                                        <?= Html::a('Замовити', ['set-order', 'user_check' => $user_one->id, 'user_create'=>Yii::$app->user->id,'product'=>$product->id], ['class' => 'btn btn btn-warning']) ?>
 
                                      <?php endforeach; ?>
                                 </div>

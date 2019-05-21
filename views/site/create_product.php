@@ -19,8 +19,8 @@ use yii\widgets\ActiveForm;
 <div class="container">
       <?= $form->field($model, 'name_product')->textInput()->label("Назва")?>
       <?= $form->field($model, 'price_product')->textInput(['placeholder'=>'$'])->label("Ціна")?>
-     
-
+      
+      <?= $form->field($img_model, 'image',['labelOptions'=>['style'=>'font-size:24px']])->fileInput(['maxlength' => true])->label("Оберіть фотографію"); ?>
       <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Трв 09 2019 р., 19:55
+-- Час створення: Трв 21 2019 р., 13:07
 -- Версія сервера: 5.5.41-log
 -- Версія PHP: 5.6.3
 
@@ -57,8 +57,19 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_create` int(11) NOT NULL,
   `user_check` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `status` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Дамп даних таблиці `Order`
+--
+
+INSERT INTO `Order` (`id`, `user_create`, `user_check`, `id_product`, `date`, `status`) VALUES
+(8, 5, 1, 5, '2019-05-20', 1),
+(9, 5, 1, 6, '2019-05-20', 0);
 
 -- --------------------------------------------------------
 
@@ -71,16 +82,18 @@ CREATE TABLE IF NOT EXISTS `Products` (
   `name_product` varchar(30) NOT NULL,
   `price_product` varchar(10) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `img` varchar(100) NOT NULL,
+  `status` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп даних таблиці `Products`
 --
 
-INSERT INTO `Products` (`id`, `name_product`, `price_product`, `id_user`) VALUES
-(1, 'Весілля', '1000', 1),
-(2, 'Хрестини', '1000', 1);
+INSERT INTO `Products` (`id`, `name_product`, `price_product`, `id_user`, `img`, `status`) VALUES
+(5, 'Весілля', '300', 1, 'd849253e5280854704d6d11b80d17ff8.jpg', 0),
+(6, 'Кліпи', '1000', 1, 'a5953d3527ffa297be596e63e13f3dd0.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -147,14 +160,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `description` text NOT NULL,
   `img` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Дамп даних таблиці `user`
 --
 
 INSERT INTO `user` (`id`, `status`, `username`, `isAdmin`, `type`, `email`, `password`, `price`, `City`, `Filming_cities`, `phone`, `telegram`, `viber`, `facebook`, `rating`, `instagram`, `description`, `img`) VALUES
-(1, 1, 'Kostya_Duda', 0, 'Відеограф', 'izmets733@gmail.com', '32313231p', 100, 'Хмельницький', 'Хмельницький, Чернівці, Тернопіль, Вінниця', '380677191506', '380677191506', '380677191506', 'https://www.facebook.com/profile.php?id=100017129264642', '8', '@vp_studio__', 'Привет пострижись, короче  цей я тіпа знімаю відоси там)))', 'a0e562ef931052b9ad179457984f22b3.jpg'),
+(1, 1, 'Kostya_Duda', 1, 'Відеограф', 'izmets733@gmail.com', '32313231p', 100, 'Хмельницький', 'Хмельницький, Чернівці, Тернопіль, Вінниця', '380677191506', '380677191506', '380677191506', 'https://www.facebook.com/profile.php?id=100017129264642', '8', '@vp_studio__', 'Привет пострижись, короче  цей я тіпа знімаю відоси там)))', 'a0e562ef931052b9ad179457984f22b3.jpg'),
 (2, 1, 'Brunov_producrtiom', 0, 'Відеограф', 'brunov@gmail.com', '1111', 400, 'Київ', 'Вся Україна', '38098434313', '38098434313', '38098434313', '', '10', '@brunov_andrey', '', '43a3f51a1bc6fce2ba7a33abbf6184db.jpg'),
 (5, 0, 'Vlad', 0, 'Користувач', 'vlad@gmail.com', '321', 0, 'Хмельницький', '', '3809856432', '3809856432', '3809856432', '', '0', '_vlados11_', '', 'db78d1362793c69069618f9ca46b77d1.jpg'),
 (6, 0, 'Maks', 0, 'Користувач', 'mar@gmai.com', '4321', 0, '', '', '', '', '', '', '0', '', '', 'no-image.jpg'),
@@ -164,7 +177,22 @@ INSERT INTO `user` (`id`, `status`, `username`, `isAdmin`, `type`, `email`, `pas
 (11, 0, 'Oleksa', 0, 'Користувач', 'ol@gmail.com', '123', 0, 'Харків', '', '(097) 252-90-82', '(097) 252-90-82', '(097) 252-90-82', '', '0', '@oleksa', '', 'no-image.jpg'),
 (13, 0, 'test', 0, 'Відеограф', 'admin@gmail.com', '123', 0, '', '', '', '', '', '', '0', '', '', 'no-image.jpg'),
 (14, 1, 'Kostya_', 0, 'Відеограф', 'izmets211@gmail.com', '123', 200, 'Хмельницький', 'Вся Україна', '3454534545', '3454534545', '3454534545', '', '0', '@vp_studio', 'Опис', '430ebcb8ddeb5046bd2977370bc20656.jpg'),
-(15, 0, 'User1', 0, 'Користувач', 'u@gmail.com', '1', 0, 'Хмельницький', '', '54353453534', '54353453534', '54353453534', '', '0', '', '', 'no-image.jpg');
+(15, 0, 'User1', 0, 'Користувач', 'u@gmail.com', '1', 0, 'Хмельницький', '', '54353453534', '54353453534', '54353453534', '', '0', '', '', 'no-image.jpg'),
+(16, NULL, 'user', 0, 'Фотограф', 'user@gmail.com', '1234', 0, '', '', '', '', '', '', '0', '', '', 'no-image.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `UserLock`
+--
+
+CREATE TABLE IF NOT EXISTS `UserLock` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date_start` datetime NOT NULL,
+  `date_end` datetime NOT NULL,
+  `count_bann` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

@@ -18,12 +18,13 @@ use app\models\Talking;
 use app\models\Coment;
 use app\models\User_content;
 use app\models\Product;
+use app\models\Order;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
-
+     
     /**
      * {@inheritdoc}
      */
@@ -73,7 +74,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
         return $this->render('index');
     }
 
@@ -97,7 +97,7 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $user_one = User_fv::findOne($id);
-       $contents = User_content::find()->where(['user_id'=> $id])->all(); //select *from content where user_id= $id
+       $contents = User_content::find()->where(['user_id'=> $id])->all();
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
         return $this->render('view',
@@ -113,11 +113,25 @@ class SiteController extends Controller
     public function actionOrder($id)
     {
         $products = Product::find()->where(['id_user'=> $id])->all();
+        $orders = Order::find()->where(['user_check'=> $id])->all();
         return $this->render('order',
         [
-            'products' => $products
+            'products' => $products,
+            'orders' => $orders
         ]);
     }
+
+    public function actionSetOrder($user_check,$user_create,$product)
+    {
+        Order::saveOrder($user_check,$user_create,$product);
+        return $this->redirect(['site/view/','id'=>$user_check]);
+    } 
+    
+    public function actionDeleteOrder($id)
+    {
+        Yii::$app->db->createCommand('UPDATE `Order` SET `status` =1 WHERE id ='.$id)->execute();
+        return $this->redirect(['site/order/','id'=>Yii::$app->user->id]);
+    } 
 
     public function actionSettings($id)
     {
@@ -208,15 +222,26 @@ class SiteController extends Controller
     public function actionSetProduct()
     {     
         $model = new Product();
+        $img_model = new ImageUpload;
         if(Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
-            if($model->saveProduct(Yii::$app->user->id))
+            $file = UploadedFile::getInstance($img_model, 'image');
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
             {
                 return $this->redirect(['view','id'=>Yii::$app->user->id]);
             }
         }
-        return $this->render('create_product', ['model'=>$model]);
+        return $this->render('create_product', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
+    }
+
+    public function actionLock()
+    {
+         Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id=1')->execute();
+        return $this->redirect(['raiting']);
     }
 
     public function actionRaiting()
