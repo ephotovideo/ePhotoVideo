@@ -107,6 +107,7 @@ AppAsset::register($this);
                             )
                             . Html::endForm() ?>
                             </li>
+                        <li><a href="<?=Url::toRoute(['/admin/default/index'])?>">Админ панель</a></li>
                     </ul>
                 </div>  
             </div>

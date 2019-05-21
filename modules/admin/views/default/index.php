@@ -22,7 +22,6 @@ use yii\helpers\Html;
                     <td><h4><p><?= $user->type?></p></h4></td>
                     <?php if($user->status == 1):?>
                         <td><?= Html::a('Заблокувати', ['unlock','id'=>$user->id], ['class' => 'btn btn-danger']) ?></td>
-                        <button type="button" class="btn btn-danger" id="myBtn">Open Modal</button>
                     <?php else:?>
                         <td><?= Html::a('Розблукувати', ['lock','id'=>$user->id], ['class' => 'btn btn-default']) ?></td>
                     <?php endif;?>
