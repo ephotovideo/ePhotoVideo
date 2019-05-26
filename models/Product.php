@@ -42,6 +42,5 @@ class Product extends ActiveRecord{
         $product->img = $img;
         return $product->save(false);
     }
-     
 }
 
