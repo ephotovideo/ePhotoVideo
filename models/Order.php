@@ -21,13 +21,7 @@ class Order extends ActiveRecord{
 
     public function getUser($id)
     {
-        $user = User_fv::findOne($id);
-        return $user;
-    }  
 
-    public function getProduct()
-    {
-        return $this->hasOne(Product::className(), ['id' => 'id_product']);
     }
 
     public function saveOrder($user_check,$user_create,$product)

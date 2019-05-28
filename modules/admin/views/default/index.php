@@ -21,10 +21,9 @@ use yii\helpers\Html;
                     <td><h4><a  href="<?= Url::toRoute(['/admin/default/view-user', 'id'=>$user->id]);?>"><?= $user->username?></a></h4></td>
                     <td><h4><p><?= $user->type?></p></h4></td>
                     <?php if($user->status == 1):?>
-                        <td><?= Html::a('Заблокувати', ['unlock','id'=>$user->id], ['class' => 'btn btn-danger']) ?></td>
-                        <button type="button" class="btn btn-danger" id="myBtn">Open Modal</button>
+                        <td><?= Html::a('Заблокувати', ['lock','id'=>$user->id], ['class' => 'btn btn-danger']) ?></td>
                     <?php else:?>
-                        <td><?= Html::a('Розблукувати', ['lock','id'=>$user->id], ['class' => 'btn btn-default']) ?></td>
+                        <td><?= Html::a('Розблукувати', ['unlock','id'=>$user->id], ['class' => 'btn btn-default']) ?></td>
                     <?php endif;?>
                 </tr>
             <?php endforeach; ?>
@@ -61,10 +60,8 @@ use yii\helpers\Html;
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
 
 <script>

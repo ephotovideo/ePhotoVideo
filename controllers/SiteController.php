@@ -174,13 +174,12 @@ class SiteController extends Controller
                 return $this->redirect(['site/settings', 'id'=>$user->id]);
             }
         }
-        
         return $this->render('upload_avatar', ['model'=>$model]);
     }
 
     public function actionSetContent($id)
     {
-        $model = new ImageUpload;
+        $model_lock = new ImageUpload;
         if (Yii::$app->request->isPost)
         {
             $user = new User_content;

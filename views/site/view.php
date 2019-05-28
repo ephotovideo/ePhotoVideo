@@ -6,11 +6,9 @@ use yii\helpers\Html;
     <div class="product-big-title-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
                     <div class="product-bit-title text-center">
                         <h2>Ваша сторінка</h2>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -20,7 +18,7 @@ use yii\helpers\Html;
             <div class="row">            
                 <div class="col-md-12 col-lg-12">
                     <div class="product-content-right">
-                        <div class="row">
+                        <div>
                             <div class="col-sm-6">
                                 <div class="product-images">
                                     <div class="product-main-img">
@@ -33,45 +31,25 @@ use yii\helpers\Html;
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            
-                            <div class="col-sm-6">
-                                <div class="product-inner">
-                                       <h2 class="product-name"><?= $user_one->username?></h2>
-                                       <p id="type"><?= $user_one->type?></p>
-                                    <div class="product-inner-price">  
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name"><?= $user_one->username?></h2>
+                                <p id="type"><?= $user_one->type?></p>
+                                <div class="product-inner-price">
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-                                     
-                                      <p>Тариф:</p><ins>$<?= $user_one->price?></ins>                     
-                                      <?php endif; ?>
-                                      <p>Місто:</p>
-                                      <div class="city"><p id="in_city"><?= $user_one->City?></p></div>
-                                      <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-                                       <p>Знімаю в:</p>
-                                       <?php endif; ?>
-                                      <div class="film"><p id="filming_cities"><?= $user_one->Filming_cities?></p></div>
-                                      <p>Контакти:</p>
-                                      <div class="contacts_logo">
-                                         <ul>
-                                             <li><img src="/img/logo/phone.png"></li>
-                                             <li><img src="/img/logo/email.png"></li>
-                                             <li><img src="/img/logo/viber.png"></li>
-                                             <li><img src="/img/logo/tele.png"></li>
-                                             <li><img src="/img/logo/face.png"></li>
-                                             <li><img src="/img/logo/insta.png"></li>
-                                         </ul>
-                                      </div>
-                                      <div class="contacts_text">
-                                         <div><p>:<?= $user_one->phone?></p></div>
-                                         <div><p>:<?= $user_one->email?></p></div>
-                                         <div><p>:<?= $user_one->telegram?></p></div>
-                                         <div><p>:<?= $user_one->viber?></p></div>
-                                         <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
-                                         <div><p>:<?= $user_one->instagram?></p></div>
-                                         <div><p>Кількість замовлень:<?= $count?></p></div>
-                                      </div>
-                                </div>
-                                    </div>  
                                     </div>
+                                    <div class="contacts_text">
+                                        <div><p>:<?= $user_one->phone?></p></div>
+                                        <div><p>:<?= $user_one->email?></p></div>
+                                        <div><p>:<?= $user_one->telegram?></p></div>
+                                        <div><p>:<?= $user_one->viber?></p></div>
+                                        <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
+                                        <div><p>:<?= $user_one->instagram?></p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
                                     <div class="about_" role="tabpanel">
@@ -91,8 +69,7 @@ use yii\helpers\Html;
                                         </div>
                                         <?php endif; ?>
                                     </div>
-                                    
-                                </div>
+
                             </div>
                         </div>
 
