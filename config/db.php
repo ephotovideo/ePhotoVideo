@@ -3,7 +3,7 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=ePhotoVideo',
-    'username' => 'root',
-    'password' => '',
+    'username' => 'admin',
+    'password' => '1',
     'charset' => 'utf8',
 ];

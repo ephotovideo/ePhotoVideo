@@ -13,7 +13,6 @@ use yii\helpers\Html;
         </div>
     </div>
     
-    
     <div class="single-product-area">
         <div class="container">
             <div class="row">            
@@ -28,7 +27,7 @@ use yii\helpers\Html;
                                     <?php if(Yii::$app->user->id === $user_one->id): ?>
                                     <a class="add_to_cart_button" href="<?= Url::toRoute(['site/settings', 'id'=>Yii::$app->user->id]);?>">Налаштування сторінки</a>                                          
                                     <br>
-                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['site/settings', 'id'=>Yii::$app->user->id]);?>">Налаштування сторінки</a>                                          
+                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['site/order','id'=>Yii::$app->user->id]);?>">Мої замовлення</a>                                          
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -39,25 +38,6 @@ use yii\helpers\Html;
                                 <p id="type"><?= $user_one->type?></p>
                                 <div class="product-inner-price">
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-
-                                        <p>Тариф:</p><ins>$<?= $user_one->price?></ins>
-                                    <?php endif; ?>
-                                    <p>Місто:</p>git status
-                                    <div class="city"><p id="in_city"><?= $user_one->City?></p></div>
-                                    <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-                                        <p>Знімаю в:</p>
-                                    <?php endif; ?>
-                                    <div class="film"><p id="filming_cities"><?= $user_one->Filming_cities?></p></div>
-                                    <p>Контакти:</p>
-                                    <div class="contacts_logo">
-                                        <ul>
-                                            <li><img src="/img/logo/phone.png"></li>
-                                            <li><img src="/img/logo/email.png"></li>
-                                            <li><img src="/img/logo/viber.png"></li>
-                                            <li><img src="/img/logo/tele.png"></li>
-                                            <li><img src="/img/logo/face.png"></li>
-                                            <li><img src="/img/logo/insta.png"></li>
-                                        </ul>
                                     </div>
                                     <div class="contacts_text">
                                         <div><p>:<?= $user_one->phone?></p></div>
@@ -95,7 +75,9 @@ use yii\helpers\Html;
 
                         
                         <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
+                        <div class="col-md-12">
                           <h1 id="pop_way" align="center">Мої Послуги</h1>
+                          
                                 <div id="products">
 
                                     <?php if(Yii::$app->user->id == $user_one->id): ?>
@@ -104,16 +86,34 @@ use yii\helpers\Html;
 
                                      <?php foreach($products as $product):?>
 
-                                        <?php if(Yii::$app->user->id == $user_one->id): ?>
-                                            <?= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-default']) ?>
-                                        <?php endif; ?>  
+                                         
 
-                                        <h2><?= $product->name_product?></h2>
-                                        <p><?= $product->price_product?></p>
+                                        <div class="col-md-3">
+                                            <div class="single-product">
+                                            <?php if(Yii::$app->user->id == $user_one->id): ?>
+                                            <?= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-danger']) ?>
+                                        <?php endif; ?> 
+                                               <div class="product-f-image">
+                                                   <img src="<?= $product->getImage_Product()?>" alt="">
+                                                   <?php if(Yii::$app->user->id != $user_one->id): ?>
+                                                   <div class="product-hover">
+                                                       <!-- <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a> -->
+                                                       
+                                                       <?= Html::a('Замовити', ['set-order', 'user_check' => $user_one->id, 'user_create'=>Yii::$app->user->id,'product'=>$product->id], ['class' => 'add-to-cart-link']) ?>
+                                                    </div>
+                                                   <?php endif; ?>
+                                               </div>
 
+                                                <h2><a href=""><?= $product->name_product?></a></h2>
+            
+                                                <div class="product-carousel-price">
+                                                    <ins>$<?= $product->price_product?></ins>
+                                                </div> 
+                                               </div>
+                                         </div>
                                      <?php endforeach; ?>
                                 </div>
-
+                                </div>
                                 <h2 class="related-products-title">Портфоліо</h2>
                                 <div id="tabs">
                                     <ul>
@@ -193,11 +193,9 @@ use yii\helpers\Html;
                                                 </div>     
                                             </div>  
                                     <?php endforeach; ?>
-                          </div>  
-                     </div>
-                   </div>
-              </div>
-           <?php endif; ?>
+                          
+
+                         <?php endif; ?>
                   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
                                       
                      <script>

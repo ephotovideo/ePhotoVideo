@@ -80,6 +80,7 @@ use yii\widgets\ActiveForm;
                         <div class="single-shop-product">
                             <div class="product-upper">
                                 <img id="img_float" width="300px" src="<?=$user->getImage_raiting() ?>" alt="">
+                                <?= Html::a('LOCK', ['lock'], ['class' => 'btn btn btn-warning']) ?>
                                 <div class="name_in_raiting">
                                     <h2><a  href="<?= Url::toRoute(['site/view', 'id'=>$user->id]);?>"><?= $user->username?></a></h2>
                                     <p class="user-type"><?= $user->type?></p>
@@ -117,7 +118,9 @@ use yii\widgets\ActiveForm;
                    
                 </div>
                 <?php endforeach; ?>
-
+               
+                
+               
                 <div class="row">
                     <div class="col-md-12">
                         <div class="product-pagination text-center">

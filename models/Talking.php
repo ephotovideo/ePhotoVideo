@@ -19,6 +19,7 @@ class Talking extends ActiveRecord{
     {
         return $this->hasOne(User_fv::className(), ['id' => 'user_create']);
     }  
+    
     public function getComment()
     {
         return $this->hasMany(Coment::className(), ['talking_id' => 'id']);

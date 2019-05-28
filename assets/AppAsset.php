@@ -34,9 +34,11 @@ class AppAsset extends AssetBundle
         'css/responsive.css',
         'css/form-reg.css',
         'css/raiting.css',
+        'css/jquery-ui.css'
 
     ];
     public $js = [
+        'js/jquery-ui.js',
         'js/owl.carousel.min.js',
         'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
         'js/jquery.sticky.js',

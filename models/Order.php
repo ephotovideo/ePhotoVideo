@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Order extends ActiveRecord{
     public static function tableName()
@@ -15,22 +16,23 @@ class Order extends ActiveRecord{
     }
     public function getUser_fv()
     {
-        return $this->hasOne(User_fv::className(), ['id' => 'id_user']);
+        return $this->hasOne(User_fv::className(), ['id' => 'user_check']);
     }
 
-    public function saveOrder($id)
+    public function getUser($id)
     {
-        $vacan = new Vacancy;
-        $vacan->id_user = $id;
-        $vacan->location  =  $this->location;
-        $vacan->desciption  = $this->desciption;
-        $vacan->price  = $this->price;
-        return $vacan->save(false);
+
     }
-    public function getCity()
+
+    public function saveOrder($user_check,$user_create,$product)
     {
-       $sql = Vacancy::find()->andwhere(['location' => $this->location]);
-        return $sql;
+        $order = new Order;
+        $order->user_check = $user_check;
+        $order->user_create =  $user_create;
+        $order->id_product =  $product;
+        $order->date = new Expression('NOW()');
+        return $order->save(false);
     }
+
 }
 
