@@ -42,5 +42,11 @@ class Product extends ActiveRecord{
         $product->img = $img;
         return $product->save(false);
     }
+
+    public function countOrder($user,$product)
+    {
+        $count = Order::find()->Where(['=', 'status', 0])->andwhere(['user_check' => $user])->andwhere(['id_product' => $product])->count();
+        return $count;
+    }
 }
 

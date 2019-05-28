@@ -185,11 +185,17 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
         return $this->hasMany(Coment::className(), ['id_user' => 'id']);
     }
 
-
+    public function getCountAllOrders($user)
+    {
+        $count = Order::find()->Where(['user_check' => $user])->count();
+        return $count;
+    }
     // public function afterDelete()
     // {
     //     Vacansy::deleteAll(['id_user' => $this->primaryKey]);
     //     return parent::afterDelete();
+    //
+    //
     // }
     
 }

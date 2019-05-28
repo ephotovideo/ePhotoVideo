@@ -67,6 +67,7 @@ use yii\helpers\Html;
                                          <div><p>:<?= $user_one->viber?></p></div>
                                          <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
                                          <div><p>:<?= $user_one->instagram?></p></div>
+                                         <div><p>Кількість замовлень:<?= $count?></p></div>
                                       </div>
                                 </div>
                                     </div>  

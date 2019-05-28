@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
     <?php foreach($products as $product):?>
          <h3><?= $product->name_product?></h3>
             <div>
+            <p>Кількість замовлень:<?= $product->countOrder(Yii::$app->user->id,$product->id)?></p>
             <?php foreach($orders as $order):?>
                 <?php if($order->id_product == $product->id):?>
                     <img width="50px" src="<?=$order->getUser($order->user_create)->getImage();?>">

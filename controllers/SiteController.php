@@ -96,7 +96,9 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-        $user_one = User_fv::findOne($id);
+
+       $count = User_fv::getCountAllOrders($id);
+       $user_one = User_fv::findOne($id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
@@ -105,7 +107,8 @@ class SiteController extends Controller
             'user_one'=>$user_one,
             'contents' => $contents,
             'vacancies' => $vacancies,
-            'products' => $products
+            'products' => $products,
+            'count' => $count
         ]
     );
     }
@@ -113,7 +116,8 @@ class SiteController extends Controller
     public function actionOrder($id)
     {
         $products = Product::find()->where(['id_user'=> $id])->all();
-        $orders = Order::find()->where(['user_check'=> $id])->all();
+        $orders = Order::find()->where(['user_check'=> $id])->andWhere(['=', 'status', 0])->all();
+        //$count = Yii::$app->db->createCommand('SELECT count(*) FROM `Order` where user_check = 1  '.$id);
         return $this->render('order',
         [
             'products' => $products,
@@ -236,6 +240,30 @@ class SiteController extends Controller
         return $this->render('create_product', ['model'=>$model,
         'img_model' => $img_model
         ]);
+    }
+
+    public function actionSetProductNew()
+    {     
+        $model = new Product();
+        $img_model = new ImageUpload;
+        if(Yii::$app->request->isPost)
+        {
+            $model->load(Yii::$app->request->post());
+            $file = UploadedFile::getInstance($img_model, 'image');
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
+            {
+                return $this->redirect(['view','id'=>Yii::$app->user->id]);
+            }
+        }
+        return $this->render('create_product', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
+    }
+
+    public function actionField()
+    {
+        return $this->render('field');
     }
 
     public function actionLock()

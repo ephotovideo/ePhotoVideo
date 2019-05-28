@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use \CropboxWidget;
 ?>
 <div class="product-big-title-area">
         <div class="container">
@@ -15,7 +16,9 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+    'options' => ['enctype'=>'multipart/form-data'],
+]); ?>
 <div class="container">
       <?= $form->field($model, 'name_product')->textInput()->label("Назва")?>
       <?= $form->field($model, 'price_product')->textInput(['placeholder'=>'$'])->label("Ціна")?>
