@@ -25,7 +25,6 @@ class Order extends ActiveRecord{
         $vacan->location  =  $this->location;
         $vacan->desciption  = $this->desciption;
         $vacan->price  = $this->price;
-        $vacan->title  = $this->title;
         return $vacan->save(false);
     }
     public function getCity()

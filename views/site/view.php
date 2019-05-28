@@ -6,11 +6,9 @@ use yii\helpers\Html;
     <div class="product-big-title-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
                     <div class="product-bit-title text-center">
                         <h2>Ваша сторінка</h2>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -21,7 +19,7 @@ use yii\helpers\Html;
             <div class="row">            
                 <div class="col-md-12 col-lg-12">
                     <div class="product-content-right">
-                        <div class="row">
+                        <div>
                             <div class="col-sm-6">
                                 <div class="product-images">
                                     <div class="product-main-img">
@@ -34,14 +32,14 @@ use yii\helpers\Html;
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            
+                        </div>
                             <div class="col-sm-6">
                                 <div class="product-inner">
                                        <h2 class="product-name"><?= $user_one->username?></h2>
                                        <p id="type"><?= $user_one->type?></p>
                                     <div class="product-inner-price">  
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-                                     
+
                                       <p>Тариф:</p><ins>$<?= $user_one->price?></ins>                     
                                       <?php endif; ?>
                                       <p>Місто:</p>
@@ -50,25 +48,22 @@ use yii\helpers\Html;
                                        <p>Знімаю в:</p>
                                        <?php endif; ?>
                                       <div class="film"><p id="filming_cities"><?= $user_one->Filming_cities?></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="product-inner">
                                       <p>Контакти:</p>
                                       <div class="contacts_logo">
                                          <ul>
-                                             <li><img src="/img/logo/phone.png"></li>
-                                             <li><img src="/img/logo/email.png"></li>
-                                             <li><img src="/img/logo/viber.png"></li>
-                                             <li><img src="/img/logo/tele.png"></li>
-                                             <li><img src="/img/logo/face.png"></li>
-                                             <li><img src="/img/logo/insta.png"></li>
+                                             <li><img width="30%" src="/img/logo/phone.png"><p>:<?= $user_one->phone?></p></li>
+                                             <li><img width="30%" src="/img/logo/email.png"><p>:<?= $user_one->email?></p></li>
+                                             <li><img width="30%" src="/img/logo/viber.png"><p>:<?= $user_one->telegram?></p></li>
+                                             <li><img width="30%" src="/img/logo/tele.png"><p>:<?= $user_one->viber?></p></li>
+                                             <li><img width="30%" src="/img/logo/face.png"><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></li>
+                                             <li><img width="30%" src="/img/logo/insta.png"><p>:<?= $user_one->instagram?></p></li>
                                          </ul>
                                       </div>
-                                      <div class="contacts_text">
-                                         <div><p>:<?= $user_one->phone?></p></div>
-                                         <div><p>:<?= $user_one->email?></p></div>
-                                         <div><p>:<?= $user_one->telegram?></p></div>
-                                         <div><p>:<?= $user_one->viber?></p></div>
-                                         <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
-                                         <div><p>:<?= $user_one->instagram?></p></div>
-                                      </div>
+
                                 </div>
                                     </div>  
                                     </div>
@@ -91,8 +86,7 @@ use yii\helpers\Html;
                                         </div>
                                         <?php endif; ?>
                                     </div>
-                                    
-                                </div>
+
                             </div>
                         </div>
 

@@ -8,6 +8,7 @@ use app\models\User_fv;
 use app\models\Vacancy;
 use app\models\User_content;
 use app\models\Product;
+use app\models\UserLock;
 
 class DefaultController extends Controller
 {
@@ -35,15 +36,41 @@ class DefaultController extends Controller
 
     public function actionUnlock($id)
     {
-        Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id ='.$id)
+        Yii::$app->db->createCommand('UPDATE user SET status=1 WHERE id ='.$id)
             ->execute();
         return $this->redirect(['index']);
     }
+//    public function actionBann($id)
+//    {
+//        $model_lock = new UserLock;
+//        if (Yii::$app->request->isPost)
+//        {
+//            $model_lock->load(Yii::$app->request->post());
+//            if($model_lock->saveBan($id))
+//            {
+//                return $this->redirect(['index']);
+//            }
+//        }
+//
+//        return $this->render('lock', ['model'=>$model_lock]);
+//    }
 
     public function actionLock($id)
     {
-        Yii::$app->db->createCommand('UPDATE user SET status=1 WHERE id ='.$id )
-            ->execute();
-        return $this->redirect(['index']);
+        $model_lock = new UserLock;
+        if (Yii::$app->request->isPost)
+        {
+            $model_lock->load(Yii::$app->request->post());
+            if($model_lock->saveBan($id))
+            {
+
+                Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id ='.$id )
+                    ->execute();
+                return $this->redirect(['index']);
+            }
+        }
+
+        return $this->render('lock', ['model'=>$model_lock]);
     }
+
 }
