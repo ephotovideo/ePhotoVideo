@@ -118,10 +118,13 @@ use yii\helpers\Html;
                                         <?php endif; ?> 
                                                <div class="product-f-image">
                                                    <img src="<?= $product->getImage_Product()?>" alt="">
+                                                   <?php if(Yii::$app->user->id != $user_one->id): ?>
                                                    <div class="product-hover">
                                                        <!-- <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a> -->
+                                                       
                                                        <?= Html::a('Замовити', ['set-order', 'user_check' => $user_one->id, 'user_create'=>Yii::$app->user->id,'product'=>$product->id], ['class' => 'add-to-cart-link']) ?>
-                                                   </div>
+                                                    </div>
+                                                   <?php endif; ?>
                                                </div>
 
                                                 <h2><a href=""><?= $product->name_product?></a></h2>
