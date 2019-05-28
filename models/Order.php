@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Order extends ActiveRecord{
     public static function tableName()
@@ -18,19 +19,25 @@ class Order extends ActiveRecord{
         return $this->hasOne(User_fv::className(), ['id' => 'user_check']);
     }
 
+    public function getUser($id)
+    {
+        $user = User_fv::findOne($id);
+        return $user;
+    }  
+
     public function getProduct()
     {
         return $this->hasOne(Product::className(), ['id' => 'id_product']);
     }
 
-    public function saveComent($user_check,$user_create)
+    public function saveOrder($user_check,$user_create,$product)
     {
-
         $order = new Order;
         $order->user_check = $user_check;
-        $coment->user_create =  $user_create;
-        //$coment->text = $this->text;
-        return $coment->save(false);
+        $order->user_create =  $user_create;
+        $order->id_product =  $product;
+        $order->date = new Expression('NOW()');
+        return $order->save(false);
     }
 
 }

@@ -3,15 +3,14 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-//use app\widgets\Alert;
+use app\widgets\Alert;
 use yii\helpers\Html;
-//use yii\bootstrap\Nav;
-//use yii\bootstrap\NavBar;
-//use yii\widgets\Breadcrumbs;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 use app\componets\menu;
-use app\widgets\CheckAdmin;
 
 AppAsset::register($this);
 ?>
@@ -86,8 +85,7 @@ AppAsset::register($this);
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
-
+                </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav list_margin_user">
                         <li><a href="/">Головна</a></li>
@@ -95,8 +93,6 @@ AppAsset::register($this);
                         <li><a href="/site/raiting">Шукати володарів фото\відео камер</a></li>
                         <li><a href="<?=Url::toRoute(['site/vacancy'])?>">ВАКАНСІЇ</a></li>
                         <li><a href="<?=Url::toRoute(['site/talking'])?>">Обговорення</a></li>
-<!--                        <li><a href="--><?//=Url::toRoute(['admin/sigin'])?><!--">Адмін панель</a></li>-->
-
                         <li><a href="registr.html">Карта сокровіщ</a></li>
                         <!-- <li><a href="/site/login">Вийти</a></li> -->
                         <li>
