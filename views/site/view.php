@@ -33,40 +33,43 @@ use yii\helpers\Html;
                                 </div>
                             </div>
                         </div>
-                            <div class="col-sm-6">
-                                <div class="product-inner">
-                                       <h2 class="product-name"><?= $user_one->username?></h2>
-                                       <p id="type"><?= $user_one->type?></p>
-                                    <div class="product-inner-price">  
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name"><?= $user_one->username?></h2>
+                                <p id="type"><?= $user_one->type?></p>
+                                <div class="product-inner-price">
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
 
-                                      <p>Тариф:</p><ins>$<?= $user_one->price?></ins>                     
-                                      <?php endif; ?>
-                                      <p>Місто:</p>
-                                      <div class="city"><p id="in_city"><?= $user_one->City?></p></div>
-                                      <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
-                                       <p>Знімаю в:</p>
-                                       <?php endif; ?>
-                                      <div class="film"><p id="filming_cities"><?= $user_one->Filming_cities?></p></div>
+                                        <p>Тариф:</p><ins>$<?= $user_one->price?></ins>
+                                    <?php endif; ?>
+                                    <p>Місто:</p>git status
+                                    <div class="city"><p id="in_city"><?= $user_one->City?></p></div>
+                                    <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
+                                        <p>Знімаю в:</p>
+                                    <?php endif; ?>
+                                    <div class="film"><p id="filming_cities"><?= $user_one->Filming_cities?></p></div>
+                                    <p>Контакти:</p>
+                                    <div class="contacts_logo">
+                                        <ul>
+                                            <li><img src="/img/logo/phone.png"></li>
+                                            <li><img src="/img/logo/email.png"></li>
+                                            <li><img src="/img/logo/viber.png"></li>
+                                            <li><img src="/img/logo/tele.png"></li>
+                                            <li><img src="/img/logo/face.png"></li>
+                                            <li><img src="/img/logo/insta.png"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="contacts_text">
+                                        <div><p>:<?= $user_one->phone?></p></div>
+                                        <div><p>:<?= $user_one->email?></p></div>
+                                        <div><p>:<?= $user_one->telegram?></p></div>
+                                        <div><p>:<?= $user_one->viber?></p></div>
+                                        <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
+                                        <div><p>:<?= $user_one->instagram?></p></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-10">
-                                    <div class="product-inner">
-                                      <p>Контакти:</p>
-                                      <div class="contacts_logo">
-                                         <ul>
-                                             <li><img width="30%" src="/img/logo/phone.png"><p>:<?= $user_one->phone?></p></li>
-                                             <li><img width="30%" src="/img/logo/email.png"><p>:<?= $user_one->email?></p></li>
-                                             <li><img width="30%" src="/img/logo/viber.png"><p>:<?= $user_one->telegram?></p></li>
-                                             <li><img width="30%" src="/img/logo/tele.png"><p>:<?= $user_one->viber?></p></li>
-                                             <li><img width="30%" src="/img/logo/face.png"><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></li>
-                                             <li><img width="30%" src="/img/logo/insta.png"><p>:<?= $user_one->instagram?></p></li>
-                                         </ul>
-                                      </div>
-
-                                </div>
-                                    </div>  
-                                    </div>
+                            </div>
+                        </div>
                             
                                     <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
                                     <div class="about_" role="tabpanel">
