@@ -8,6 +8,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datetime\DateTimePicker;
 
 
 ?>
@@ -17,27 +18,18 @@ use yii\widgets\ActiveForm;
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <div class="form-group">
-    <?php $form = ActiveForm::begin(); ?>
+    <? $form = ActiveForm::begin()?>
     <?= $form->field($model, 'reason')->textInput() ?>
-    <?php echo '<label>Start Date/Time</label>';
-    echo DateTimePicker::widget([
-    'name' => 'datetime_10',
-    'options' => ['placeholder' => 'Select operating time ...'],
-    'convertFormat' => true,
-    'pluginOptions' => [
-    'format' => 'd-M-Y g:i A',
-    'startDate' => '01-Mar-2014 12:00 AM',
-    'todayHighlight' => true
-    ]
-    ]);?>
-    <p>Date: <input type="text" id="datepicker"></p>
+    <?= $form->field($model, 'date_end')->widget(DateTimePicker::className(), [
+        'options' => ['placeholder' => 'Select issue date ...'],
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'dd.mm.yyyy H:i',// час тоже
+            'todayHighlight' => true
+        ]
+    ])?>
+    <!-- <p>Date: <input type="text" id="datepicker"></p> -->
 
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-
-    </script>
 
     <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 </div>
