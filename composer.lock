@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6720324da874291f4a936879979e45b6",
+    "content-hash": "81925a83032b8ec5a241f302f17edc1f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -67,6 +67,24 @@
             ]
         },
         {
+            "name": "bower-asset/js-cropbox",
+            "version": "0.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bupy7/js-cropbox.git",
+                "reference": "a6e1791f868c876f71bfb494f8c8701082ccc697"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bupy7/js-cropbox/zipball/a6e1791f868c876f71bfb494f8c8701082ccc697",
+                "reference": "a6e1791f868c876f71bfb494f8c8701082ccc697"
+            },
+            "type": "bower-asset",
+            "license": [
+                "BSD-3-Clause"
+            ]
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -101,6 +119,65 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "bupy7/yii2-widget-cropbox",
+            "version": "5.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bupy7/yii2-widget-cropbox.git",
+                "reference": "d17b7dbb9e4725a273da83f5c567fe27a8a090bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bupy7/yii2-widget-cropbox/zipball/d17b7dbb9e4725a273da83f5c567fe27a8a090bc",
+                "reference": "d17b7dbb9e4725a273da83f5c567fe27a8a090bc",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/js-cropbox": "~0.12.0",
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.2.3",
+                "phpunit/phpunit": ">=4.8 <6.0.0",
+                "satooshi/php-coveralls": "^1.0.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "bupy7\\cropbox\\": "src",
+                    "bupy7\\cropbox\\tests\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vasilij Belosludcev",
+                    "email": "bupy765@gmail.com",
+                    "homepage": "http://mihaly4.ru"
+                }
+            ],
+            "description": "This is widget wrapper of https://github.com/bupy7/js-cropbox. This widget allows crop image before to upload to server and send informations about crop as JSON string.",
+            "homepage": "https://github.com/bupy7/yii2-widget-cropbox",
+            "keywords": [
+                "crop",
+                "extension",
+                "image",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-05-22T09:59:54+00:00"
         },
         {
             "name": "cebe/markdown",
