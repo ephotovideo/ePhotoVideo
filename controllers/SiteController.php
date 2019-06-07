@@ -139,9 +139,6 @@ class SiteController extends Controller
 
     public function actionSettings($id)
     {
-        if($id != Yii::$app->user->identity->id)
-            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
-
         $user_one = User_fv::findOne($id);
         if(!$user_one)
             throw new \yii\web\NotFoundHttpException("Користувач не знайдений");
@@ -154,6 +151,10 @@ class SiteController extends Controller
                 return $this->redirect(['site/view/','id'=>$id]);
             }
         }
+        if($id != Yii::$app->user->identity->id || $user_one->isAdmin != 1)
+            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
+
+
         return $this->render('settings',
         [
             'user_one'=>$user_one
@@ -179,7 +180,7 @@ class SiteController extends Controller
 
     public function actionSetContent($id)
     {
-        $model_lock = new ImageUpload;
+        $model = new ImageUpload;
         if (Yii::$app->request->isPost)
         {
             $user = new User_content;

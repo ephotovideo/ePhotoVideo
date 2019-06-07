@@ -34,7 +34,9 @@ class AppAsset extends AssetBundle
         'css/responsive.css',
         'css/form-reg.css',
         'css/raiting.css',
-        'css/jquery-ui.css'
+        'css/jquery-ui.css',
+        'css/index.css',
+        'css/view.css',
 
     ];
     public $js = [

@@ -44,6 +44,7 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
             'accessToken' => '101-token',
         ],
     ];
+
     public function attributeLabels()
     {
         return [

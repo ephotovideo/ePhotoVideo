@@ -24,15 +24,13 @@ use kartik\datetime\DateTimePicker;
         'options' => ['placeholder' => 'Select issue date ...'],
         'pluginOptions' => [
             'autoclose' => true,
-            'format' => 'dd.mm.yyyy H:i',// час тоже
-            'todayHighlight' => true
+            'format' => 'yyyy.mm.dd HH:ii',
+            'todayHighlight' => true,
+            'startDate' => $date
         ]
     ])?>
-    <!-- <p>Date: <input type="text" id="datepicker"></p> -->
-
-
     <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 </div>
-
+<? echo $date ?>
 <?php ActiveForm::end(); ?>
 

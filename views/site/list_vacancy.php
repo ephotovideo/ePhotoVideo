@@ -69,7 +69,7 @@ use yii\helpers\Html;
                             <div class="product-upper">
                                 <div class="name_in_raiting">
                                     <h2><a  href="#"><?= $vacancy->title?></a></h2>
-                                
+
                                  </div>
                                  <div class="user-info">
                                         
@@ -92,11 +92,15 @@ use yii\helpers\Html;
                                             <img src="/img/logo/pen.png">
                                             <p><?= $vacancy->desciption?></p>
                                     </div>   
-                                </div>  
-                            </div>                     
+                                </div>
+                                <div class="product-option-shop">
+                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['view-vacancy', 'id'=>$vacancy->id]);?>">Поскаржитись</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>     
-                </div>    
+                    </div>
+                </div>
+                <hr>
                 <?php endforeach; ?>
 
                 <div class="row">

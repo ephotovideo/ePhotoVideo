@@ -5,22 +5,38 @@ namespace app\modules\admin\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\User_fv;
+use app\models\Raiting;
 use app\models\Vacancy;
 use app\models\User_content;
 use app\models\Product;
 use app\models\UserLock;
+use yii\data\Pagination;
 
 class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        $user_table = User_fv::find()->all();
-        return $this->render('index', ['users' => $user_table]);
+        $model = new Raiting;
+        if(Yii::$app->request->isPost){
+            $model->load(Yii::$app->request->post());
+            $query = $model->searchUserAdmin();
+        }
+        else{
+            $query = Raiting::find();
+        }
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count,'pageSize'=>10]);
+        $users = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+        return $this->render('index', [
+            'users' => $users,
+            'model' => $model,
+            'pagination'=>$pagination
+        ]);
     }
 
     public function actionViewUser($id)
     {
-        $user_one = User_fv::findOne($id); //=)
+        $user_one = User_fv::findOne($id);
         $contents = User_content::find()->where(['user_id' => $id])->all(); //select *from content where user_id= $id
         $vacancies = Vacancy::find()->where(['id_user' => $id])->all();
         $products = Product::find()->where(['id_user' => $id])->all();
@@ -57,9 +73,11 @@ class DefaultController extends Controller
 
     public function actionLock($id)
     {
+        $date = date("Y-m-d H:i:s");
         $model_lock = new UserLock;
         if (Yii::$app->request->isPost)
         {
+
             $model_lock->load(Yii::$app->request->post());
             if($model_lock->saveBan($id))
             {
@@ -70,7 +88,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('lock', ['model'=>$model_lock]);
+        return $this->render('lock', ['model'=>$model_lock, 'date'=>$date]);
     }
 
 }

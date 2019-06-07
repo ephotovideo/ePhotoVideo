@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
                             <div class="product-upper">
                                 <div class="name_in_raiting">
                                     <h2><?= $talking->title?></h2>
-                                
+                                    <?= Html::submitButton('Поскаржитись', ['class' => 'btn btn-danger', 'name' => 'login-button']) ?>
                                  </div>
                                  <hr>
                                  <div class="user-info">
@@ -42,9 +42,7 @@ use yii\widgets\ActiveForm;
                  <?= $form->field($model, 'text')->textarea(['rows' => 10])?>
     
                  <div class="form-group">
-                       <div class="col-lg-offset-1 col-lg-11">
                            <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                       </div>
                    </div>
                <?php ActiveForm::end(); ?> 
                      
@@ -52,7 +50,15 @@ use yii\widgets\ActiveForm;
                     <div class="single-shop-comment">
                     <img width="50px" src="<?=$coment->getUser($coment->id_user)->getImage();?>">
                         <a  style="font-size:30px;" href="<?= Url::toRoute(['site/view', 'id'=>$coment->getUser($coment->id_user)->id]);?>"><?=$coment->getUser($coment->id_user)->username ?></a>
-                    </div>
+                                <?= Html::submitButton('Поскаржитись', ['class' => 'btn btn-danger', 'name' => 'login-button']) ?>
+<!--                        --><?php //$form = ActiveForm::begin(); ?>
+<!--                        <div class="col-lg-4 col-md-4 col-sm-12">-->
+<!--                            --><?//= $form->field($model, 'type')->dropDownList([
+//                                'Фотограф' => 'Фотограф',
+//                                'Відеограф' => 'Відеограф',
+//                            ]);?>
+<!--                            --><?php //ActiveForm::end(); ?>
+                        </div>
                               <p style="font-size:20px; font-style:italic;"><?=$coment->text?></p>
                     </div>
                     <?php endforeach; ?>  
