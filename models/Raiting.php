@@ -8,6 +8,7 @@ class Raiting extends ActiveRecord{
         return [
             [['type'], 'required'],
             [['type'], 'string'],
+            [['username'],'string'],
             [['Filming_cities'], 'string']
         ];
     }
@@ -22,7 +23,7 @@ class Raiting extends ActiveRecord{
     }
     public function getSearch()
     {
-       $sql = Raiting::find()->Where(['>', 'status', 0])->andwhere(['type' => $this->type])->andFilterWhere(['or', ['like', 'Filming_cities', 'Вся Україна'], ['like','Filming_cities', $this->Filming_cities]]);
+       $sql = Raiting::find()->Where(['>', 'status', 0])->andwhere(['type' => $this->type])->andFilterWhere(['or', ['like', 'Filming_cities', 'Вся Україна'], ['like','Filming_cities', $this->Filming_cities]])->andFilterWhere(['like','username',$this->username]);
         return $sql;
     }
 

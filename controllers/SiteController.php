@@ -21,6 +21,8 @@ use app\models\Product;
 use app\models\Order;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
+use app\models\UserLock;
+use yii\db\Expression;
 
 class SiteController extends Controller
 {
@@ -291,6 +293,61 @@ class SiteController extends Controller
             ]);
     }
 
+    public function actionCheckLock()
+    {
+        $date = date("Y-m-d H:i:s");
+        //$date_now = datе("Y-m-d H:i:s");
+        $model_lock = UserLock::find()->all();
+         foreach($model_lock as $lock)
+         {
+            if($lock->date_end <= $date)
+            {
+                Yii::$app->db->createCommand('UPDATE user SET status=1 WHERE id ='.$lock->id_user)
+                    ->execute();
+                Yii::$app->db->createCommand('DELETE FROM `userlock`  WHERE id_user ='.$lock->id_user)
+                    ->execute(); 
+                    //Yii::$app->db->createCommand('UPDATE `Order` SET `status` =1 WHERE id ='.$id)->execute();
+            }
+         }
+         return $this->render('index');
+         
+        
+    }
+
+    public function actionTmp()
+    {
+    //     $model = new Product();
+    //     $img_model = new ImageUpload;
+    //     if(Yii::$app->request->isAjax){
+    //         echo "fuck";
+    //            $img_model->image = $_POST['image'];
+    //             $img_model->image_name = $_POST['image_name'];
+    //             if($_POST['image_name'] == NULL)
+    //             {
+
+    //    return $this->render('index');
+
+    //             }
+                
+    //     }
+        if(Yii::$app->request->isPost)
+        { 
+            $model->load(Yii::$app->request->post());
+            $file = UploadedFile::getInstance($img_model, 'image');
+          //$img_model->image = $_POST['image'];
+          // $img_model->image_name = $_POST['image_name'];
+           
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
+            {
+               return $this->redirect(['view','id'=>Yii::$app->user->id]);
+            }
+        }
+
+        return $this->render('tmp', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
+    }
 
     public function actionVacancy()
     {

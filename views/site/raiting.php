@@ -58,6 +58,7 @@ use yii\widgets\ActiveForm;
         'Тернопіль' => 'Тернопіль',
         'Ужгород' => 'Ужгород',
     ])->label("Місто");;?>
+     <?= $form->field($model, 'username')->textInput()->label("Нік нейм");?>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="form-group">

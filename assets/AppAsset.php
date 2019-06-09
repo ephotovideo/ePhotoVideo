@@ -43,6 +43,8 @@ class AppAsset extends AssetBundle
         'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
         'js/jquery.sticky.js',
         'js/jquery.easing.1.3.min.js',
-        'js/main.js'
+        'js/main.js',
+        'js/crop.js',
+        'js/croppie.js'
     ];
 }
