@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\bootstrap\ButtonDropdown;
 ?>
 <div class="product-big-title-area">
         <div class="container">
@@ -94,7 +95,15 @@ use yii\helpers\Html;
                                     </div>   
                                 </div>
                                 <div class="product-option-shop">
-                                    <a class="add_to_cart_button" href="<?= Url::toRoute(['view-vacancy', 'id'=>$vacancy->id]);?>">Поскаржитись</a>
+                                    <?php echo ButtonDropdown::widget([
+                                        'label' => 'Поскаржитись',
+                                        'dropdown' => [
+                                            'items' => [
+                                                ['label' => 'Створив вакансію яка не стосуються тематики Сайту', 'url' => '/'],
+                                                ['label' => 'В назві вакансії використовує нецензурну лексику', 'url' => '#'],
+                                            ],
+                                        ],
+                                    ]); ?>
                                 </div>
                             </div>
                         </div>

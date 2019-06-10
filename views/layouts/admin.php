@@ -65,6 +65,8 @@ AppAsset::register($this);
                     <div class="container">
                         <ul class="nav navbar-nav list_margin">
                             <li><a href="/">Головна</a></li>
+                            <li><a href="<?=Url::toRoute(['/admin/default/index'])?>">Таблиця користувачів</a></li>
+                            <li><a href="<?=Url::toRoute(['/admin/default/complaint'])?>">Таблиця скарг</a></li>
                         </ul>
                     </div>
                 </div>

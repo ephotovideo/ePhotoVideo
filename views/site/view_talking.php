@@ -3,6 +3,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
+use yii\bootstrap\ButtonDropdown;
+use yii\base\Widget;
 ?>
 <div class="product-big-title-area">
         <div class="container">
@@ -24,8 +26,28 @@ use yii\widgets\ActiveForm;
                             <div class="product-upper">
                                 <div class="name_in_raiting">
                                     <h2><?= $talking->title?></h2>
-                                    <?= Html::submitButton('Поскаржитись', ['class' => 'btn btn-danger', 'name' => 'login-button']) ?>
-                                 </div>
+                                    <div class="form-group">
+                                    <?php echo ButtonDropdown::widget([
+                                        'label' => 'Поскаржитись',
+                                        'dropdown' => [
+                                            'items' => [
+                                                ['label' => 'Створює обговорення які не стосуються тематики Сайту', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $talking->user_create,
+                                                    'content' => "",
+                                                    'vacancy' => "",
+                                                    'talk' => $talking->id,
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Створює обговорення які не стосуються тематики Сайту',
+                                                    'url' => Url::current()
+                                                    ])],
+                                                ['label' => 'Принижує та пропагує до релігійних поглядів, політичних партій угрупувань, сект інших користувачів(фотографів або відемейкерів)', 'url' => '#'],
+                                                ['label' => 'Нецензурно виражається в сторону інших користувачів(фотографів або відемейкерів) під час оброворення', 'url' => '/'],
+                                            ],
+                                        ],
+                                    ]); ?>
+                                </div>
                                  <hr>
                                  <div class="user-info">
                                         
@@ -50,17 +72,18 @@ use yii\widgets\ActiveForm;
                     <div class="single-shop-comment">
                     <img width="50px" src="<?=$coment->getUser($coment->id_user)->getImage();?>">
                         <a  style="font-size:30px;" href="<?= Url::toRoute(['site/view', 'id'=>$coment->getUser($coment->id_user)->id]);?>"><?=$coment->getUser($coment->id_user)->username ?></a>
-                                <?= Html::submitButton('Поскаржитись', ['class' => 'btn btn-danger', 'name' => 'login-button']) ?>
-<!--                        --><?php //$form = ActiveForm::begin(); ?>
-<!--                        <div class="col-lg-4 col-md-4 col-sm-12">-->
-<!--                            --><?//= $form->field($model, 'type')->dropDownList([
-//                                'Фотограф' => 'Фотограф',
-//                                'Відеограф' => 'Відеограф',
-//                            ]);?>
-<!--                            --><?php //ActiveForm::end(); ?>
+                        <?php echo ButtonDropdown::widget([
+                            'label' => 'Поскаржитись',
+                            'dropdown' => [
+                                'items' => [
+                                    ['label' => 'Нецензурно виражається в сторону інших користувачів(фотографів або відемейкерів) під час оброворення', 'url' => '/'],
+                                    ['label' => 'Принижує та пропагує до релігійних поглядів, політичних партій угрупувань, сект інших користувачів(фотографів або відемейкерів)', 'url' => '#'],
+                                ],
+                            ],
+                        ]); ?>
                         </div>
                               <p style="font-size:20px; font-style:italic;"><?=$coment->text?></p>
                     </div>
-                    <?php endforeach; ?>  
+                    <?php endforeach; ?>
                 </div>
                 </div>      

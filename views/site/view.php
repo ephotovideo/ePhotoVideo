@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\bootstrap\ButtonDropdown;
 
 ?>
 
@@ -45,8 +46,26 @@ use yii\helpers\Html;
                                         замовлення</a>
                                 <?php endif; ?>
                                 <?php if (Yii::$app->user->id !== $user_one->id): ?>
-                                    <a class="add_to_cart_button"
-                                       href="<?= Url::toRoute(['site/order', 'id' => Yii::$app->user->id]); ?>">Поскаржитись</a>
+                                    <?php echo ButtonDropdown::widget([
+                                        'label' => 'Поскаржитись',
+                                        'dropdown' => [
+                                            'items' => [
+                                                ['label' => 'Створює обговорення які не стосуються тематики Сайту', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $talking->user_create,
+                                                    'content' => "",
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Створює обговорення які не стосуються тематики Сайту',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'Принижує та пропагує до релігійних поглядів, політичних партій угрупувань, сект інших користувачів(фотографів або відемейкерів)', 'url' => '#'],
+                                                ['label' => 'Нецензурно виражається в сторону інших користувачів(фотографів або відемейкерів) під час оброворення', 'url' => '/'],
+                                            ],
+                                        ],
+                                    ]); ?>
                                 <?php endif; ?>
                             </div>
                         </div>

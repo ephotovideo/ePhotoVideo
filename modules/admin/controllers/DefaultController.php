@@ -11,28 +11,29 @@ use app\models\User_content;
 use app\models\Product;
 use app\models\UserLock;
 use yii\data\Pagination;
+use app\models\Complaint;
 
 class DefaultController extends Controller
 {
     public function actionIndex()
-    {
-        $model = new Raiting;
-        if(Yii::$app->request->isPost){
-            $model->load(Yii::$app->request->post());
-            $query = $model->searchUserAdmin();
-        }
-        else{
-            $query = Raiting::find();
-        }
-        $count = $query->count();
-        $pagination = new Pagination(['totalCount' => $count,'pageSize'=>10]);
-        $users = $query->offset($pagination->offset)->limit($pagination->limit)->all();
-        return $this->render('index', [
-            'users' => $users,
-            'model' => $model,
-            'pagination'=>$pagination
-        ]);
+{
+    $model = new Raiting;
+    if(Yii::$app->request->isPost){
+        $model->load(Yii::$app->request->post());
+        $query = $model->searchUserAdmin();
     }
+    else{
+        $query = Raiting::find();
+    }
+    $count = $query->count();
+    $pagination = new Pagination(['totalCount' => $count,'pageSize'=>10]);
+    $users = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+    return $this->render('index', [
+        'users' => $users,
+        'model' => $model,
+        'pagination'=>$pagination
+    ]);
+}
 
     public function actionViewUser($id)
     {
@@ -90,5 +91,10 @@ class DefaultController extends Controller
 
         return $this->render('lock', ['model'=>$model_lock, 'date'=>$date]);
     }
+    public function actionComplaint()
+    {// де контролер який переда модельку скарг? оно?да ну так де запит який передає дані
+        $compl = Complaint::find()->all();// select * from Complaint
 
+        return $this->render('complaint',['complaints' => $compl]);// кожна вюха має мати контролер!!!
+    }
 }

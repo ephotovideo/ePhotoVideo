@@ -19,6 +19,7 @@ use app\models\Coment;
 use app\models\User_content;
 use app\models\Product;
 use app\models\Order;
+use app\models\Complaint;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 
@@ -349,10 +350,19 @@ class SiteController extends Controller
             'talkings' => $talkings,
             ]);
     }
+
+    public function actionComplaint($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason,$url)
+    {
+        $model = new Complaint();
+        $model->setCompl($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason);
+        return $this->redirect([$url]);
+
+    }
     public function actionViewTalking($id)
     {
        $model = new Coment();
        $talking = Talking::findOne($id);
+       $compl = new Complaint();
        $coments = Coment::find()->where(['talking_id'=> $id])->all();
        if(Yii::$app->request->isPost)
         {
@@ -366,7 +376,8 @@ class SiteController extends Controller
         [
             'talking' => $talking,
             'coments' => $coments,
-            'model' => $model
+            'model' => $model,
+            'compl' => $compl
         ]
     );
     }
