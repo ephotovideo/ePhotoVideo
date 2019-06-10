@@ -2,7 +2,6 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use bupy7\cropbox\CropboxWidget;
 ?>
 <div class="product-big-title-area">
         <div class="container">

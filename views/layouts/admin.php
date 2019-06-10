@@ -41,12 +41,9 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="/">e<span>PhotoVideo</span></a></h1>
+                        <h1><a href="/">Admin<span>Panel</span></a></h1>
                         <div class="logoII">
-                            <img class="position_logo" src="/img/logo/videocam.png">
-                            <h2 class="position_logo">/</h2>
-                            <img class="position_logo" src="/img/logo/photocame.png">
-                        </div>
+                            <img class="position_logo" src="/img/logo/admin.png">
                     </div>
                 </div>
             </div>
@@ -68,6 +65,8 @@ AppAsset::register($this);
                     <div class="container">
                         <ul class="nav navbar-nav list_margin">
                             <li><a href="/">Головна</a></li>
+                            <li><a href="<?=Url::toRoute(['/admin/default/index'])?>">Таблиця користувачів</a></li>
+                            <li><a href="<?=Url::toRoute(['/admin/default/complaint'])?>">Таблиця скарг</a></li>
                         </ul>
                     </div>
                 </div>

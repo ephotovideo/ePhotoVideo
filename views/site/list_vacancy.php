@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\bootstrap\ButtonDropdown;
 ?>
 <div class="product-big-title-area">
         <div class="container">
@@ -69,7 +70,7 @@ use yii\helpers\Html;
                             <div class="product-upper">
                                 <div class="name_in_raiting">
                                     <h2><a  href="#"><?= $vacancy->title?></a></h2>
-                                
+
                                  </div>
                                  <div class="user-info">
                                         
@@ -92,11 +93,23 @@ use yii\helpers\Html;
                                             <img src="/img/logo/pen.png">
                                             <p><?= $vacancy->desciption?></p>
                                     </div>   
-                                </div>  
-                            </div>                     
+                                </div>
+                                <div class="product-option-shop">
+                                    <?php echo ButtonDropdown::widget([
+                                        'label' => 'Поскаржитись',
+                                        'dropdown' => [
+                                            'items' => [
+                                                ['label' => 'Створив вакансію яка не стосуються тематики Сайту', 'url' => '/'],
+                                                ['label' => 'В назві вакансії використовує нецензурну лексику', 'url' => '#'],
+                                            ],
+                                        ],
+                                    ]); ?>
+                                </div>
+                            </div>
                         </div>
-                    </div>     
-                </div>    
+                    </div>
+                </div>
+                <hr>
                 <?php endforeach; ?>
 
                 <div class="row">

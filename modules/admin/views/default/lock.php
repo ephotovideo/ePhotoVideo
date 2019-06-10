@@ -10,7 +10,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
 
-
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -26,11 +25,10 @@ use kartik\datetime\DateTimePicker;
             'autoclose' => true,
             'format' => 'yyyy.mm.dd HH:ii',
             'todayHighlight' => true,
-            'startDate' => date("yyyy.mm.dd HH:ii")
+            'startDate' => $date
         ]
     ])?>
     <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 </div>
-<?php  echo $date_start?>
 <?php ActiveForm::end(); ?>
 

@@ -1,0 +1,42 @@
+*{
+    box-sizing:border-box;
+}
+.picture{
+    position:relative;
+    display:inline-block;
+    width:300px;
+    height:200px;
+}
+
+.picture__button{
+    display:inline-block;
+    position:absolute;
+    top:5px;
+    right:5px;
+    z-index:2;
+    background:none;
+    border:1px solid;
+    font-size:20px;
+    font-weight:bold;
+    color:#fff;
+}
+.box {
+    width: 100%;
+    float: left;
+    height: 550px;
+}
+
+.image {
+    height: 100%;
+    vertical-align: middle;
+}
+.box_puslugi {
+    width: 100%;
+    float: left;
+    height: 550px;
+}
+
+.image_poslugi {
+    height: 45%;
+    vertical-align: middle;
+}
