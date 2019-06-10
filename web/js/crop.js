@@ -57,13 +57,10 @@ $('.upload-circle-image').click(function(){
      // formData.append('action', 'upload-avatar-image');
   
       $.ajax({
-        url: 'http://ephotovideo/site/tmp',
+        url: "<?php echo base_url('site/tmp'); ?>",
         type: 'POST',
         data: formData,
           success: function(){
-            //$('.profile-upload-div').css({'display': 'none'});
-            //refreshAvatarImageUploader();
-            //setAvatarProfileImage(res);
             alert("hello");
             $('#uploadAvatarImage').modal('hide');
           },

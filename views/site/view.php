@@ -67,7 +67,10 @@ use yii\helpers\Html;
                                         <div><p>:<?= $user_one->viber?></p></div>
                                         <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
                                         <div><p>:<?= $user_one->instagram?></p></div>
-                                        <div><p>Кількість замовлень:<?= $count?></p></div>
+                                        <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
+                                        <div><p>Кількість замовлень:<?= $count?></p></div>   
+                                        <?php endif; ?>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -194,19 +197,19 @@ use yii\helpers\Html;
                         <div class="user-info">
 
                             <div class="map">
-                                <img  width="32px"src="img/logo/map.png" >
+                                <img  width="32px"src="/img/logo/map.png" >
                                 <div class="film"><p id="filming_cities_vacancy"><?= $vacancy->location?></p></div>
                             </div>
 
                             <div class="col-lg-6 block_price">
                                 <div class="price-info product-inner-price">
-                                    <img src="img/logo/mon.png">
+                                    <img src="/img/logo/mon.png">
                                     <p>від</p>
                                     <ins>$<?= $vacancy->price?></ins>
                                 </div>
                             </div>
                             <div class="col-lg-12 block_descripti">
-                                <img src="img/logo/pen.png">
+                                <img src="/img/logo/pen.png">
                                 <p><?= $vacancy->desciption?></p>
                             </div>
                         </div>
