@@ -99,14 +99,15 @@ use yii\bootstrap\ButtonDropdown;
                                         </ul>
                                     </div>
                                     <div class="contacts_text">
-                                        <div><p>:<?= $user_one->phone ?></p></div>
-                                        <div><p>:<?= $user_one->email ?></p></div>
-                                        <div><p>:<?= $user_one->telegram ?></p></div>
-                                        <div><p>:<?= $user_one->viber ?></p></div>
-                                        <div><a href="<?= $user_one->facebook ?>" target="new" id="facebook_link"> :
-                                                myFacebook</a></div>
-                                        <div><p>:<?= $user_one->instagram ?></p></div>
-                                        <div><p>Кількість замовлень:<?= $count ?></p></div>
+                                        <div><p>:<?= $user_one->phone?></p></div>
+                                        <div><p>:<?= $user_one->email?></p></div>
+                                        <div><p>:<?= $user_one->telegram?></p></div>
+                                        <div><p>:<?= $user_one->viber?></p></div>
+                                        <div><a href="<?= $user_one->facebook?>" target="new" id="facebook_link"> : myFacebook</a></div>
+                                        <div><p>:<?= $user_one->instagram?></p></div>
+                                        <?php if($user_one->type == "Відеограф" ||  $user_one->type == "Фотограф" ): ?>
+                                        <div><p>Кількість замовлень:<?= $count?></p></div>   
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -142,42 +143,14 @@ use yii\bootstrap\ButtonDropdown;
                 <h1 id="pop_way" align="center">Мої Послуги
                     <?php if (Yii::$app->user->id == $user_one->id): ?>
                         <?= Html::a('Додати Послугу', ['set-product', 'id' => $user_one->id], ['class' => 'btn btn-default']) ?>
+                        <a class="add_to_cart_button" href="<?= Url::toRoute(['site/tmp']);?>">Crop</a>
+                        <a class="add_to_cart_button" href="<?= Url::toRoute(['site/check-lock']);?>">Check Lock</a>
                     <?php endif; ?>
                 </h1>
 
                 <div id="products">
-
-                    <?php foreach ($products as $product): ?>
-<!--                    <div class="card-deck">-->
-<!--                        <div class="card border-warning mb-3" style="max-width: 18rem;">-->
-<!---->
-<!--                            <div class="product-f-image">-->
-<!--                                <div class="picture">-->
-<!--                                    <div class="box_puslugi">-->
-<!--                                    --><?php //if (Yii::$app->user->id == $user_one->id): ?>
-<!--                                        <img src="--><?//= $product->getImage_Product() ?><!--" alt="" class="image_poslugi">-->
-<!--                                        --><?//= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-danger picture__button']) ?>
-<!--                                    --><?php //endif; ?>
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                --><?php //if (Yii::$app->user->id != $user_one->id): ?>
-<!--                                    <div class="product-hover">-->
-
-<!--                                        --><?//= Html::a('Замовити', ['set-order', 'user_check' => $user_one->id, 'user_create' => Yii::$app->user->id, 'product' => $product->id], ['class' => 'add-to-cart-link']) ?>
-<!--                                    </div>-->
-<!--                                --><?php //endif; ?>
-<!--                            </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                <h5 class="card-title"><a href="">--><?//= $product->name_product ?><!--</a></h5>-->
-<!--                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                            </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    --><?php //endforeach; ?>
-
-
-                        <div class="col-md-4">
+                    <?php foreach($products as $product):?>
+                        <div class="col-md-3">
                             <div class="single-product">
                                 <div class="product-f-image">
                                     <div class="picture">
@@ -273,20 +246,20 @@ use yii\bootstrap\ButtonDropdown;
                         <div class="user-info">
 
                             <div class="map">
-                                <img width="32px" src="img/logo/map.png">
-                                <div class="film"><p id="filming_cities_vacancy"><?= $vacancy->location ?></p></div>
+                                <img  width="32px"src="/img/logo/map.png" >
+                                <div class="film"><p id="filming_cities_vacancy"><?= $vacancy->location?></p></div>
                             </div>
 
                             <div class="col-lg-6 block_price">
                                 <div class="price-info product-inner-price">
-                                    <img src="img/logo/mon.png">
+                                    <img src="/img/logo/mon.png">
                                     <p>від</p>
                                     <ins>$<?= $vacancy->price ?></ins>
                                 </div>
                             </div>
                             <div class="col-lg-12 block_descripti">
-                                <img src="img/logo/pen.png">
-                                <p><?= $vacancy->desciption ?></p>
+                                <img src="/img/logo/pen.png">
+                                <p><?= $vacancy->desciption?></p>
                             </div>
                         </div>
                     </div>

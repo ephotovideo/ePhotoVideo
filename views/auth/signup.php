@@ -26,10 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="site-login">
-
-
-              
-                
                 <div class="main-div">
                     <div class="login-page">
                             <div class="doors-right">

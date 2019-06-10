@@ -40,6 +40,7 @@ class Product extends ActiveRecord{
         $product->name_product  =  $this->name_product;
         $product->price_product  = $this->price_product;
         $product->img = $img;
+        $product->status = 0;
         return $product->save(false);
     }
 

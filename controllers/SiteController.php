@@ -22,6 +22,8 @@ use app\models\Order;
 use app\models\Complaint;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
+use app\models\UserLock;
+use yii\db\Expression;
 
 class SiteController extends Controller
 {
@@ -293,6 +295,40 @@ class SiteController extends Controller
             ]);
     }
 
+
+    public function actionTmp()
+    {
+        $model = new Product();
+        $img_model = new ImageUpload;
+        if(Yii::$app->request->isAjax){
+            echo "fuck";
+               $img_model->image = $_POST['image'];
+                $img_model->image_name = $_POST['image_name'];
+                if($_POST['image_name'] != NULL)
+                {
+                 return $this->render('index');
+                }
+                
+        }
+        if(Yii::$app->request->isPost)
+        { 
+            $model->load(Yii::$app->request->post());
+            $file = UploadedFile::getInstance($img_model, 'image');
+          //$img_model->image = $_POST['image'];
+          // $img_model->image_name = $_POST['image_name'];
+          //print_r($_POST['price_product']);
+           //die();
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
+            {
+               return $this->redirect(['view','id'=>Yii::$app->user->id]);
+            }
+        }
+
+        return $this->render('tmp', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
+    }
 
     public function actionVacancy()
     {

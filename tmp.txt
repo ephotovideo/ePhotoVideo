@@ -1,0 +1,6 @@
+<?= $form->field($img_model, 'image',['labelOptions'=>['style'=>'font-size:24px']])->fileInput(['maxlength' => true])->label("Оберіть фотографію"); ?>
+
+<?= $form->field($img_model, 'image')->widget(CropboxWidget::className(), [
+        'croppedDataAttribute' => 'crop_info'
+    ]);
+      ?>

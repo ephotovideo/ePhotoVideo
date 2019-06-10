@@ -10,8 +10,10 @@ use app\models\Vacancy;
 use app\models\User_content;
 use app\models\Product;
 use app\models\UserLock;
+use yii\db\Expression;
 use yii\data\Pagination;
 use app\models\Complaint;
+
 
 class DefaultController extends Controller
 {
@@ -82,7 +84,6 @@ class DefaultController extends Controller
             $model_lock->load(Yii::$app->request->post());
             if($model_lock->saveBan($id))
             {
-
                 Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id ='.$id )
                     ->execute();
                 return $this->redirect(['index']);
