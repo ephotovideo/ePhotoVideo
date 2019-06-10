@@ -10,7 +10,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
 
-
 ?>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -24,15 +23,12 @@ use kartik\datetime\DateTimePicker;
         'options' => ['placeholder' => 'Select issue date ...'],
         'pluginOptions' => [
             'autoclose' => true,
-            'format' => 'dd.mm.yyyy H:i',// час тоже
-            'todayHighlight' => true
+            'format' => 'yyyy.mm.dd HH:ii',
+            'todayHighlight' => true,
+            'startDate' => $date
         ]
     ])?>
-    <!-- <p>Date: <input type="text" id="datepicker"></p> -->
-
-
     <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
 </div>
-
 <?php ActiveForm::end(); ?>
 

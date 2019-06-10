@@ -25,6 +25,11 @@ class Raiting extends ActiveRecord{
        $sql = Raiting::find()->Where(['>', 'status', 0])->andwhere(['type' => $this->type])->andFilterWhere(['or', ['like', 'Filming_cities', 'Вся Україна'], ['like','Filming_cities', $this->Filming_cities]]);
         return $sql;
     }
+    public function searchUserAdmin()
+    {
+        $sql = Raiting::find()->Where(['type' => $this->type])->orWhere(['username' =>$this->username]);
+        return $sql;
+    }
 
 }
 ?>

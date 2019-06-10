@@ -112,7 +112,7 @@ use yii\helpers\Html;
                     <br>
                     <?php foreach($contents as $content):?>
                         <?php if($content->type == "відео"): ?>
-                            <?php if($app->user->id == $user_one->id): ?>
+                            <?php if(Yii::$app->user->id == $user_one->id): ?>
                                 <?= Html::a('X', ['delete-content', 'id' => $content->id], ['class' => 'btn btn-default']) ?>
                             <?php endif; ?>
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $content->content ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

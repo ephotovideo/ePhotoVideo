@@ -19,6 +19,7 @@ use app\models\Coment;
 use app\models\User_content;
 use app\models\Product;
 use app\models\Order;
+use app\models\Complaint;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 
@@ -139,9 +140,6 @@ class SiteController extends Controller
 
     public function actionSettings($id)
     {
-        if($id != Yii::$app->user->identity->id)
-            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
-
         $user_one = User_fv::findOne($id);
         if(!$user_one)
             throw new \yii\web\NotFoundHttpException("Користувач не знайдений");
@@ -154,6 +152,10 @@ class SiteController extends Controller
                 return $this->redirect(['site/view/','id'=>$id]);
             }
         }
+        if($id != Yii::$app->user->identity->id || $user_one->isAdmin != 1)
+            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
+
+
         return $this->render('settings',
         [
             'user_one'=>$user_one
@@ -179,7 +181,7 @@ class SiteController extends Controller
 
     public function actionSetContent($id)
     {
-        $model_lock = new ImageUpload;
+        $model = new ImageUpload;
         if (Yii::$app->request->isPost)
         {
             $user = new User_content;
@@ -348,10 +350,19 @@ class SiteController extends Controller
             'talkings' => $talkings,
             ]);
     }
+
+    public function actionComplaint($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason,$url)
+    {
+        $model = new Complaint();
+        $model->setCompl($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason);
+        return $this->redirect([$url]);
+
+    }
     public function actionViewTalking($id)
     {
        $model = new Coment();
        $talking = Talking::findOne($id);
+       $compl = new Complaint();
        $coments = Coment::find()->where(['talking_id'=> $id])->all();
        if(Yii::$app->request->isPost)
         {
@@ -365,7 +376,8 @@ class SiteController extends Controller
         [
             'talking' => $talking,
             'coments' => $coments,
-            'model' => $model
+            'model' => $model,
+            'compl' => $compl
         ]
     );
     }

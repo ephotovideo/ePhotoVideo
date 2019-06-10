@@ -73,66 +73,76 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="single-product-area">
             <div class="zigzag-bottom"></div>
-            <div class="container">
-    <?php foreach($users as $user):?>
+        <div class="container">
+            <?php foreach ($users as $user): ?>
                 <div class="row">
                     <div class=" col-lg-12 col-md-12 col-sm-12">
                         <div class="single-shop-product">
                             <div class="product-upper">
-                                <img id="img_float" width="300px" src="<?=$user->getImage_raiting() ?>" alt="">
-                                <?= Html::a('LOCK', ['lock'], ['class' => 'btn btn btn-warning']) ?>
+                                <!--                                <img id="img_float" width="300px" src="-->
+                                <? //=$user->getImage_raiting() ?><!--" alt="">-->
+                                <img id="img_float" width="300px" src="<?= $user->getImage_raiting() ?>" alt=""
+                                     class="img-circle img-thumbnail img-fluid">
                                 <div class="name_in_raiting">
-                                    <h2><a  href="<?= Url::toRoute(['site/view', 'id'=>$user->id]);?>"><?= $user->username?></a></h2>
-                                    <p class="user-type"><?= $user->type?></p>
-                                 </div>
-                                 <div class="user-info">
+                                    <h2>
+                                        <a href="<?= Url::toRoute(['site/view', 'id' => $user->id]); ?>"><?= $user->username ?></a>
+                                    </h2>
+                                    <p class="user-type"><?= $user->type ?></p>
+                                </div>
+                                <div class="user-info">
 
                                     <div class="map">
-                                        <img  width="32px"src="/img/logo/map.png" >
-                                        <div class="film"><p id="filming_cities_rating"><?= $user->Filming_cities?></p></div>
+                                        <img width="32px" src="/img/logo/map.png">
+                                        <div class="film"><p id="filming_cities_rating"><?= $user->Filming_cities ?></p>
+                                        </div>
                                     </div>
-                                     <div class="col-lg-6 block_price">
-                                     <div class="price-info product-inner-price">
-                                        <img src="/img/logo/mon.png">
-                                       <p>від</p>
-                                        <ins><?= $user->price?>$</ins>
-                                     </div>
+                                    <div class="col-lg-6 block_price">
+                                        <div class="price-info product-inner-price">
+                                            <img src="/img/logo/mon.png">
+                                            <p>від</p>
+                                            <ins><?= $user->price ?>$</ins>
+                                        </div>
                                     </div>
-                                     <div class="col-lg-7 block_rating">
-                                    
-                                     <div class="price-info product-inner-price">
-                                        <img src="/img/logo/pen.png">
-                                        <p><?= $user->description?></p>
-                                     </div>
+                                    <div class="col-lg-7 block_rating">
+
+                                        <div class="price-info product-inner-price">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <img src="/img/logo/pen.png">
+                                                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                    <p class="text-justify"><?= $user->description ?></p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                             
+
                             <div class="product-option-shop">
-                                <a class="add_to_cart_button" href="<?= Url::toRoute(['site/view', 'id'=>$user->id]);?>">Дивитись</a>
-                            </div>                       
+                                <a class="add_to_cart_button"
+                                   href="<?= Url::toRoute(['site/view', 'id' => $user->id]); ?>">Дивитись</a>
+                            </div>
                         </div>
                     </div>
 
-                    
-                   
+
                 </div>
-                <?php endforeach; ?>
-               
-                
-               
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="product-pagination text-center">
-                            <nav>
-                              <?php
-                    echo LinkPager::widget([
-                        'pagination' => $pagination,
-                    ]);
-                ?>
-                            </nav>                        
-                        </div>
+            <?php endforeach; ?>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-pagination text-center">
+                        <nav>
+                            <?php
+                            echo LinkPager::widget([
+                                'pagination' => $pagination,
+                            ]);
+                            ?>
+                        </nav>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
