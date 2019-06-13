@@ -93,7 +93,7 @@ AppAsset::register($this);
                         <li><a href="/site/raiting">Шукати володарів фото\відео камер</a></li>
                         <li><a href="<?=Url::toRoute(['site/vacancy'])?>">ВАКАНСІЇ</a></li>
                         <li><a href="<?=Url::toRoute(['site/talking'])?>">Обговорення</a></li>
-                        <li><a href="registr.html">Карта сокровіщ</a></li>
+                        <li><a href="<?=Url::toRoute(['site/map'])?>">Карта сокровіщ</a></li>
                         <!-- <li><a href="/site/login">Вийти</a></li> -->
                         <li>
                         <?= Html::beginForm(['/auth/logout'], 'post')
