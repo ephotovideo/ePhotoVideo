@@ -4,3 +4,7 @@
         'croppedDataAttribute' => 'crop_info'
     ]);
       ?>
+
+
+      <a class="add_to_cart_button" href="<?= Url::toRoute(['site/tmp']);?>">Crop</a>
+                        <a class="add_to_cart_button" href="<?= Url::toRoute(['site/check-lock']);?>">Check Lock</a>

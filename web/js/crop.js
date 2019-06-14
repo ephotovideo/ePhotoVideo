@@ -4,7 +4,6 @@ $('.upload-circle-image').click(function(){
 
   $(".avatar-js-file-upload").on("change", function(e){
     if($('.avatar-js-file-upload')[0].files.length == 0){
-      alert("it here")
       return false;
     }
   
@@ -57,7 +56,7 @@ $('.upload-circle-image').click(function(){
      // formData.append('action', 'upload-avatar-image');
   
       $.ajax({
-        url: "<?php echo base_url('site/tmp'); ?>",
+        url: "/site/set-product",
         type: 'POST',
         data: formData,
           success: function(){

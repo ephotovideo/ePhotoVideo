@@ -142,9 +142,8 @@ use yii\bootstrap\ButtonDropdown;
             <div class="col-md-12">
                 <h1 id="pop_way" align="center">Мої Послуги
                     <?php if (Yii::$app->user->id == $user_one->id): ?>
-                        <?= Html::a('Додати Послугу', ['set-product', 'id' => $user_one->id], ['class' => 'btn btn-default']) ?>
-                        <a class="add_to_cart_button" href="<?= Url::toRoute(['site/tmp']);?>">Crop</a>
-                        <a class="add_to_cart_button" href="<?= Url::toRoute(['site/check-lock']);?>">Check Lock</a>
+                        <?= Html::a('Додати Послугу', ['set-product'], ['class' => 'btn btn-default']) ?>
+                        
                     <?php endif; ?>
                 </h1>
 

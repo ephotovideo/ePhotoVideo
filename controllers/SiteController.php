@@ -226,43 +226,26 @@ class SiteController extends Controller
         return $this->render('insert_vacancy', ['model'=>$model]);
     }
 
-    public function actionSetProduct()
-    {     
-        $model = new Product();
-        $img_model = new ImageUpload;
-        if(Yii::$app->request->isPost)
-        {
-            $model->load(Yii::$app->request->post());
-            $file = UploadedFile::getInstance($img_model, 'image');
-            $filename = $img_model->uploadFile($file);
-            if($model->saveProduct(Yii::$app->user->id,$filename))
-            {
-                return $this->redirect(['view','id'=>Yii::$app->user->id]);
-            }
-        }
-        return $this->render('create_product', ['model'=>$model,
-        'img_model' => $img_model
-        ]);
-    }
+    // public function actionSetProduct()
+    // {     
+    //     $model = new Product();
+    //     $img_model = new ImageUpload;
+    //     if(Yii::$app->request->isAjax)
+    //     {
+    //         $model->load(Yii::$app->request->post());
+    //         $file = UploadedFile::getInstance($img_model, 'image');
+    //         $filename = $img_model->uploadFile($file);
+    //         if($model->saveProduct(Yii::$app->user->id,$filename))
+    //         {
+    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
+    //         }
+    //     }
+    //     return $this->render('create_product', ['model'=>$model,
+    //     'img_model' => $img_model
+    //     ]);
+    // }
 
-    public function actionSetProductNew()
-    {     
-        $model = new Product();
-        $img_model = new ImageUpload;
-        if(Yii::$app->request->isPost)
-        {
-            $model->load(Yii::$app->request->post());
-            $file = UploadedFile::getInstance($img_model, 'image');
-            $filename = $img_model->uploadFile($file);
-            if($model->saveProduct(Yii::$app->user->id,$filename))
-            {
-                return $this->redirect(['view','id'=>Yii::$app->user->id]);
-            }
-        }
-        return $this->render('create_product', ['model'=>$model,
-        'img_model' => $img_model
-        ]);
-    }
+
 
     public function actionField()
     {
@@ -295,39 +278,23 @@ class SiteController extends Controller
             ]);
     }
 
-
-    public function actionTmp()
+    public function actionSetProduct()
     {
         $model = new Product();
-        $img_model = new ImageUpload;
-        if(Yii::$app->request->isAjax){
-            echo "fuck";
-               $img_model->image = $_POST['image'];
-                $img_model->image_name = $_POST['image_name'];
-                if($_POST['image_name'] != NULL)
-                {
-                 return $this->render('index');
-                }
-                
+        if(Yii::$app->request->isAjax)
+        {       
+            $model->image = $_POST['image'];
+            $model->image_name = $_POST['image_name'];
         }
-        if(Yii::$app->request->isPost)
-        { 
+        else if(Yii::$app->request->isPost)
+        {
             $model->load(Yii::$app->request->post());
-            $file = UploadedFile::getInstance($img_model, 'image');
-          //$img_model->image = $_POST['image'];
-          // $img_model->image_name = $_POST['image_name'];
-          //print_r($_POST['price_product']);
-           //die();
-            $filename = $img_model->uploadFile($file);
-            if($model->saveProduct(Yii::$app->user->id,$filename))
+            if($model->saveProduct(Yii::$app->user->id))
             {
-               return $this->redirect(['view','id'=>Yii::$app->user->id]);
+                return $this->redirect(['view','id'=>Yii::$app->user->id]);
             }
-        }
-
-        return $this->render('tmp', ['model'=>$model,
-        'img_model' => $img_model
-        ]);
+        }        
+        return $this->render('create_product', ['model'=>$model]);
     }
 
     public function actionVacancy()
@@ -349,6 +316,8 @@ class SiteController extends Controller
             'model' => $model
             ]);
     }
+
+
 
     public function actionDeleteContent($id)
     {
@@ -440,6 +409,11 @@ class SiteController extends Controller
             'pagination'=>$pagination,
             'talkings' => $talkings,
             ]);
+    }
+
+    public function actionMap()
+    {
+        return $this->render('map');
     }
 
 
