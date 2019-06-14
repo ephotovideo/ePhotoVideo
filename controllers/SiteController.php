@@ -411,10 +411,7 @@ class SiteController extends Controller
             ]);
     }
 
-    public function actionMap()
-    {
-        return $this->render('map');
-    }
+  
 
 
 }

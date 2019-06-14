@@ -90,19 +90,18 @@ class Product extends ActiveRecord{
         $baseName = $expl[0];
         $filename = $this->generateFilename($baseName);
         $path = Yii::getAlias('@web') . '/uploads/'. $filename;
-        // $target = $path . '/' . $filename;
+       // $target = $path . '/' . $filename;
 
-        // if(!file_exists($path))
-        //     mkdir($path, 0777, true);
+        if(!file_exists($path))
+            mkdir($path, 0777, true);
 
-        // $stream = fopen($path, 'w');
-        // chmod($path, 0666);
-        // fwrite($stream, $data);
+        $stream = fopen($path, 'w');
+       // chmod($path, 0777);
+        fwrite($stream, $data);
 
-        // fclose($stream);
-        // file_put_contents($target);
-       file_put_contents($path, $data);
-       chmod($path, 0777);
+        fclose($stream);
+       //file_put_contents($path, $data);
+      // chmod($path, 0777);
         return $filename;
     }
 }
