@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81925a83032b8ec5a241f302f17edc1f",
+    "content-hash": "e1ac80418648eb77d0d235f01aa3d031",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -285,6 +285,60 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "kalyabin/yii2-select-google-map-location",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kalyabin/yii2-select-google-map-location.git",
+                "reference": "ed34105d783f6db07bd22d0423c8ccb5c7782627"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kalyabin/yii2-select-google-map-location/zipball/ed34105d783f6db07bd22d0423c8ccb5c7782627",
+                "reference": "ed34105d783f6db07bd22d0423c8ccb5c7782627",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.*"
+            },
+            "type": "package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kalyabin\\maplocation\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Max Kalyabin",
+                    "email": "maksim@kalyabin.ru"
+                },
+                {
+                    "name": "Kirill Arutyunov",
+                    "email": "kirill@arutyunov.me"
+                }
+            ],
+            "description": "Yii2 widget to select location at map and choose map coordinates",
+            "keywords": [
+                "framework",
+                "input widget",
+                "location",
+                "map",
+                "widgets",
+                "yii2"
+            ],
+            "time": "2018-06-26T15:20:51+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
