@@ -47,6 +47,6 @@ class AppAsset extends AssetBundle
         'js/jquery.easing.1.3.min.js',
         'js/main.js',
         'js/crop.js',
-        'js/croppie.js'
+        'js/croppie.js',
     ];
 }

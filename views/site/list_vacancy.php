@@ -99,8 +99,28 @@ use yii\bootstrap\ButtonDropdown;
                                         'label' => 'Поскаржитись',
                                         'dropdown' => [
                                             'items' => [
-                                                ['label' => 'Створив вакансію яка не стосуються тематики Сайту', 'url' => '/'],
-                                                ['label' => 'В назві вакансії використовує нецензурну лексику', 'url' => '#'],
+                                                ['label' => 'Створив вакансію яка не стосуються тематики Сайту', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $vacancy->id_user,
+                                                    'content' => "",
+                                                    'vacancy' => $vacancy->id,
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Створив вакансію яка не стосуються тематики Сайту',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'В назві вакансії використовує нецензурну лексику', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $vacancy->id_user,
+                                                    'content' => "",
+                                                    'vacancy' => $vacancy->id,
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'В назві вакансії використовує нецензурну лексику',
+                                                    'url' => Url::current()
+                                                ])],
                                             ],
                                         ],
                                     ]); ?>

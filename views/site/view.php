@@ -45,28 +45,6 @@ use yii\bootstrap\ButtonDropdown;
                                        href="<?= Url::toRoute(['site/order', 'id' => Yii::$app->user->id]); ?>">Мої
                                         замовлення</a>
                                 <?php endif; ?>
-                                <?php if (Yii::$app->user->id !== $user_one->id): ?>
-                                    <?php echo ButtonDropdown::widget([
-                                        'label' => 'Поскаржитись',
-                                        'dropdown' => [
-                                            'items' => [
-                                                ['label' => 'Створює обговорення які не стосуються тематики Сайту', 'url' =>  Url::toRoute(['site/complaint',
-                                                    'user_setter'=>Yii::$app->user->id,
-                                                    'user_getter' => $talking->user_create,
-                                                    'content' => "",
-                                                    'vacancy' => "",
-                                                    'talk' => "",
-                                                    'coment' => "",
-                                                    'product' => "",
-                                                    'reason' => 'Створює обговорення які не стосуються тематики Сайту',
-                                                    'url' => Url::current()
-                                                ])],
-                                                ['label' => 'Принижує та пропагує до релігійних поглядів, політичних партій угрупувань, сект інших користувачів(фотографів або відемейкерів)', 'url' => '#'],
-                                                ['label' => 'Нецензурно виражається в сторону інших користувачів(фотографів або відемейкерів) під час оброворення', 'url' => '/'],
-                                            ],
-                                        ],
-                                    ]); ?>
-                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -174,7 +152,68 @@ use yii\bootstrap\ButtonDropdown;
                                     <ins>$<?= $product->price_product ?></ins>
                                 </div>
                                 <?php if (Yii::$app->user->id !== $user_one->id): ?>
-                                    <?= Html::submitButton('Поскаржитись', ['class' => 'btn btn-danger', 'name' => 'login-button']) ?>
+                                    <?php echo ButtonDropdown::widget([
+                                        'label' => 'Поскаржитись',
+                                        'dropdown' => [
+                                            'items' => [
+                                                ['label' => 'Нецензурні фотографії або відео', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $content->user_id,
+                                                    'content' => $content->id,
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Нецензурні фотографії або відео',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $content->user_id,
+                                                    'content' => $content->id,
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $content->user_id,
+                                                    'content' => $content->id,
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $content->user_id,
+                                                    'content' => $content->id,
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось',
+                                                    'url' => Url::current()
+                                                ])],
+                                                ['label' => 'Фотографій або відео які принижують расову культуру', 'url' =>  Url::toRoute(['site/complaint',
+                                                    'user_setter'=>Yii::$app->user->id,
+                                                    'user_getter' => $content->user_id,
+                                                    'content' => $content->id,
+                                                    'vacancy' => "",
+                                                    'talk' => "",
+                                                    'coment' => "",
+                                                    'product' => "",
+                                                    'reason' => 'Фотографій або відео які принижують расову культуру',
+                                                    'url' => Url::current()
+                                                ])],
+                                            ],
+                                        ],
+                                    ]); ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -197,6 +236,68 @@ use yii\bootstrap\ButtonDropdown;
                             <?php if (Yii::$app->user->id == $user_one->id): ?>
                                 <?= Html::a('X', ['delete-content', 'id' => $content->id], ['class' => 'btn btn-default']) ?>
                             <?php endif; ?>
+                            <?php echo ButtonDropdown::widget([
+                                'label' => 'Поскаржитись',
+                                'dropdown' => [
+                                    'items' => [
+                                        ['label' => 'Нецензурні фотографії або відео', 'url' =>  Url::toRoute(['site/complaint',
+                                            'user_setter'=>Yii::$app->user->id,
+                                            'user_getter' => $content->user_id,
+                                            'content' => $content->id,
+                                            'vacancy' => "",
+                                            'talk' => "",
+                                            'coment' => "",
+                                            'product' => "",
+                                            'reason' => 'Нецензурні фотографії або відео',
+                                            'url' => Url::current()
+                                        ])],
+                                        ['label' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди', 'url' =>  Url::toRoute(['site/complaint',
+                                            'user_setter'=>Yii::$app->user->id,
+                                            'user_getter' => $content->user_id,
+                                            'content' => $content->id,
+                                            'vacancy' => "",
+                                            'talk' => "",
+                                            'coment' => "",
+                                            'product' => "",
+                                            'reason' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди',
+                                            'url' => Url::current()
+                                        ])],
+                                        ['label' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)', 'url' =>  Url::toRoute(['site/complaint',
+                                            'user_setter'=>Yii::$app->user->id,
+                                            'user_getter' => $content->user_id,
+                                            'content' => $content->id,
+                                            'vacancy' => "",
+                                            'talk' => "",
+                                            'coment' => "",
+                                            'product' => "",
+                                            'reason' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)',
+                                            'url' => Url::current()
+                                        ])],
+                                        ['label' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось', 'url' =>  Url::toRoute(['site/complaint',
+                                            'user_setter'=>Yii::$app->user->id,
+                                            'user_getter' => $content->user_id,
+                                            'content' => $content->id,
+                                            'vacancy' => "",
+                                            'talk' => "",
+                                            'coment' => "",
+                                            'product' => "",
+                                            'reason' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось',
+                                            'url' => Url::current()
+                                        ])],
+                                        ['label' => 'Фотографій або відео які принижують расову культуру', 'url' =>  Url::toRoute(['site/complaint',
+                                            'user_setter'=>Yii::$app->user->id,
+                                            'user_getter' => $content->user_id,
+                                            'content' => $content->id,
+                                            'vacancy' => "",
+                                            'talk' => "",
+                                            'coment' => "",
+                                            'product' => "",
+                                            'reason' => 'Фотографій або відео які принижують расову культуру',
+                                            'url' => Url::current()
+                                        ])],
+                                    ],
+                                ],
+                            ]); ?>
                             <iframe width="560" height="315"
                                     src="https://www.youtube.com/embed/<?= $content->content ?>" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -216,6 +317,70 @@ use yii\bootstrap\ButtonDropdown;
                                 <?php if (Yii::$app->user->id == $user_one->id): ?>
                                     <img width="500px" src="<?= $content->getImage_content() ?>">
                                     <?= Html::a('X', ['delete-content', 'id' => $content->id,], ['class' => 'btn btn-default picture__button']) ?>
+                                <?php endif; ?>
+                                <?php if (Yii::$app->user->id != $user_one->id): ?>
+                                <?  ButtonDropdown::widget([
+                                    'label' => 'Поскаржитись',
+                                    'dropdown' => [
+                                        'items' => [
+                                            ['label' => 'Нецензурні фотографії або відео', 'url' =>  Url::toRoute(['site/complaint',
+                                                'user_setter'=>Yii::$app->user->id,
+                                                'user_getter' => $content->user_id,
+                                                'content' => $content->id,
+                                                'vacancy' => "",
+                                                'talk' => "",
+                                                'coment' => "",
+                                                'product' => "",
+                                                'reason' => 'Нецензурні фотографії або відео',
+                                                'url' => Url::current()
+                                            ])],
+                                            ['label' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди', 'url' =>  Url::toRoute(['site/complaint',
+                                                'user_setter'=>Yii::$app->user->id,
+                                                'user_getter' => $content->user_id,
+                                                'content' => $content->id,
+                                                'vacancy' => "",
+                                                'talk' => "",
+                                                'coment' => "",
+                                                'product' => "",
+                                                'reason' => 'Фотографій або відео взяті в іншого користувача(фотографа або відемейкеру) без його згоди',
+                                                'url' => Url::current()
+                                            ])],
+                                            ['label' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)', 'url' =>  Url::toRoute(['site/complaint',
+                                                'user_setter'=>Yii::$app->user->id,
+                                                'user_getter' => $content->user_id,
+                                                'content' => $content->id,
+                                                'vacancy' => "",
+                                                'talk' => "",
+                                                'coment' => "",
+                                                'product' => "",
+                                                'reason' => 'Фотографій або відео з вмістом насилля або пропаганди(політичних партій, угрупувань, сект, релігійних поглядів тощо.)',
+                                                'url' => Url::current()
+                                            ])],
+                                            ['label' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось', 'url' =>  Url::toRoute(['site/complaint',
+                                                'user_setter'=>Yii::$app->user->id,
+                                                'user_getter' => $content->user_id,
+                                                'content' => $content->id,
+                                                'vacancy' => "",
+                                                'talk' => "",
+                                                'coment' => "",
+                                                'product' => "",
+                                                'reason' => 'Фотографій або відео компроментуючі або висміюючі когось чи щось',
+                                                'url' => Url::current()
+                                            ])],
+                                            ['label' => 'Фотографій або відео які принижують расову культуру', 'url' =>  Url::toRoute(['site/complaint',
+                                                'user_setter'=>Yii::$app->user->id,
+                                                'user_getter' => $content->user_id,
+                                                'content' => $content->id,
+                                                'vacancy' => "",
+                                                'talk' => "",
+                                                'coment' => "",
+                                                'product' => "",
+                                                'reason' => 'Фотографій або відео які принижують расову культуру',
+                                                'url' => Url::current()
+                                            ])],
+                                        ],
+                                    ],
+                                ]); ?>
                                 <?php endif; ?>
                             </div>
                         <?php endif; ?>
