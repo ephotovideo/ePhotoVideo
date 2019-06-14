@@ -29,6 +29,7 @@ class SignupForm extends Model
             $user->email = $this->email;
             $user->type = $this->type;
             $user->password = $this->password;
+            $user->isAdmin = 0;
             $user->img = "no-image.jpg";
             return $user->save(false);
         }

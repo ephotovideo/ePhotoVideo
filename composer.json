@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kartik-v/yii2-widget-datetimepicker": "^1.4",
         "kartik-v/yii2-widget-datepicker": "^1.4",
-        "bupy7/yii2-widget-cropbox": "^5.1"
+        "bupy7/yii2-widget-cropbox": "^5.1",
+        "kalyabin/yii2-select-google-map-location": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
