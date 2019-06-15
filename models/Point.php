@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Point extends ActiveRecord{
 
@@ -11,22 +12,28 @@ class Point extends ActiveRecord{
     public function rules()
     {
         return [
-            [['region','type'], 'required'],
+            [['type'], 'required'],
             [['type'], 'string'],
-            [['region'],'string'],
+            [['place_id'], 'string'],
+            [['adres'], 'string'],
+            [['name'], 'string'],
+            [['lat'], 'double'],
+            [['lng'], 'double'],
             [['description'],'string']
-
         ];
     }
     
 
-    public function savePoint($user_setter)
+    public function savePoint($user_setter,$lat,$lng,$place_id,$address)
     {
         $point = new Point;
-        $point->region = $this->region;
         $point->type =  $this->type;
-        $point->lat =  $this->$lat;
-        $point->lng =  $this->$lng;
+        $point->name =  $this->name;
+        $point->description =  $this->description;
+        $point->lat =  $lat;
+        $point->lng =  $lng;
+        $point->place_id =  $place_id;
+        $point->adres =  $address;
         $point->user_id = $user_setter;
         $point->date = new Expression('NOW()');
         return $point->save(false);

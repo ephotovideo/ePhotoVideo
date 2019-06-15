@@ -15,9 +15,8 @@ use yii\widgets\ActiveForm;
     <h3>Додати мітку</h3>
     <div class="container">
     <?php $form = ActiveForm::begin(); ?>
-
-      <?= $form->field($model, 'region')->textInput()->label("Регіон")?>
-      <?= $form->field($model, 'description')->textInput()->label("Опис")?>
+    <?= $form->field($model, 'name')->textInput()->label("Назва")?>
+      <?= $form->field($model, 'description')->textarea(['rows' => 10])->label("Опис")?>
       <?= $form->field($model, 'type')->dropDownList([
         'Вся Україна' => 'Вся Україна',
         'Дніпро' => 'Дніпро',

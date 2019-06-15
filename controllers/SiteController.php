@@ -102,6 +102,7 @@ class SiteController extends Controller
 
        $count = User_fv::getCountAllOrders($id);
        $user_one = User_fv::findOne($id);
+       $isAdmin = $this->Admin(Yii::$app->user->id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
@@ -111,7 +112,8 @@ class SiteController extends Controller
             'contents' => $contents,
             'vacancies' => $vacancies,
             'products' => $products,
-            'count' => $count
+            'count' => $count,
+            'isAdmin' => $isAdmin
         ]
     );
     }
@@ -154,7 +156,7 @@ class SiteController extends Controller
                 return $this->redirect(['site/view/','id'=>$id]);
             }
         }
-        if($id != Yii::$app->user->identity->id || $user_one->isAdmin != 1)
+        if($id != Yii::$app->user->identity->id)
             throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
 
 
@@ -256,6 +258,14 @@ class SiteController extends Controller
     {
          Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id=1')->execute();
         return $this->redirect(['raiting']);
+    }
+
+    public function Admin()
+    {
+        $id = Yii::$app->user->id;
+        // $Admin = Yii::$app->db->createCommand('SELECT isAdmin FROM user WHERE id='.$id)->execute();
+        $Admin =  User_fv::find()->select('isAdmin')->where(['id' => $id])->one();
+         return $Admin;
     }
 
     public function actionRaiting()
