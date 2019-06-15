@@ -29,17 +29,29 @@ class MapController extends Controller
 
     public function actionSetMarker()
     {
-        $serch = new SearchLocation();
         $model = new Point();
-        if(Yii::$app->request->isPost)
+        $serch =new SearchLocation();
+        if(Yii::$app->request->isAjax)
+        {
+           session_start();
+            $_SESSION['longitude']=$_POST['longitude'];
+            $_SESSION['latitude']=$_POST['latitude'];
+
+
+        }
+        else if(Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
-            // if($model->savePoint(Yii::$app->user->id))
-            // {
-            //     return $this->redirect('search_map');
-            // }
-            $serch->check();
-        }        
+            $lat =  $_SESSION['latitude'];
+            $lon= $_SESSION['longitude'];
+            unset($_SESSION['latitude']);
+            unset($_SESSION['longitude']);
+
+            if($model->savePoint(Yii::$app->user->id,$lat, $lon))
+            {
+                return $this->redirect(['view','id'=>Yii::$app->user->id]);
+            }
+        }
         return $this->render('set_marker',['model'=>$model,
         'serch'=> $serch]);
     }
