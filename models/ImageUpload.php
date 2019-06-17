@@ -14,7 +14,6 @@ class ImageUpload extends Model{
     public $image;
     public $image_name;
     public $crop_info;
-    public $folder;
 
     public function rules()
     {
@@ -26,40 +25,35 @@ class ImageUpload extends Model{
     }
 
 
-    public function uploadFile($file) //$currentImage
-    {
-        $this->image = $file;
-       
-       
-       if($this->validate())
-       {
-         return $this->saveImage();
-       }
-    }
+  
 
-    private function getFolder()
-    {
-        return Yii::getAlias('@web') . 'uploads/';
-    }
-
-    // private function generateFilename()
+    // private function getFolder()
     // {
-    //     $expl = explode(".", $this->image_name);
-    //     $baseName = $expl[0];
-    //     return strtolower(md5(uniqid($this->$baseName)) . '.' . 'jpg');
+    //     return Yii::getAlias('@web') . 'uploads/';
     // }
 
-    private function generateFilename()
-    {
-        //return strtolower(md5(uniqid( $baseName)) . '.' . 'jpg');
-        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
-    }
-    public function saveImage()
-    {
-        $filename = $this->generateFilename();
-        $this->image->saveAs($this->getFolder() . $this->folder . $filename);
-        return $filename;
-    }
+//new
+// public function uploadFile($file) //$currentImage
+// {
+//     $this->image = $file;
+   
+   
+//    if($this->validate())
+//    {
+//      return $this->saveImage();
+//    }
+// }
+    // private function generateFilename()
+    // {
+    //     //return strtolower(md5(uniqid( $baseName)) . '.' . 'jpg');
+    //     return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
+    // }
+    // public function saveImage()
+    // {
+    //     $filename = $this->generateFilename();
+    //     $this->image->saveAs($this->getFolder() . $this->folder . $filename);
+    //     return $filename;
+    // }
 
     // public function saveImage()
     // {
@@ -91,4 +85,31 @@ class ImageUpload extends Model{
 
     //     return $filename;
     // }
+
+    //old
+
+    public function uploadFile(UploadedFile $file) //$currentImage
+    {
+        $this->image = $file;
+       
+       if($this->validate())
+       {
+         return $this->saveImage();
+       }
+    }
+    private function getFolder()
+    {
+        return Yii::getAlias('@web') . 'uploads/';
+    }
+    private function generateFilename()
+    {
+        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
+    }
+    public function saveImage()
+    {
+        $filename = $this->generateFilename();
+        $this->image->saveAs($this->getFolder() . $filename);
+        return $filename;
+    }
+
 }

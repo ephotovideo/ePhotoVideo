@@ -277,24 +277,46 @@ class SiteController extends Controller
             'model' => $model
             ]);
     }
+//new
+    // public function actionSetProduct()
+    // {
+    //     $model = new Product();
+    //     if(Yii::$app->request->isAjax)
+    //     {       
+    //         $model->image = $_POST['image'];
+    //         $model->image_name = $_POST['image_name'];
+    //     }
+    //     else if(Yii::$app->request->isPost)
+    //     {
+    //         $model->load(Yii::$app->request->post());
+    //         if($model->saveProduct(Yii::$app->user->id))
+    //         {
+    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
+    //         }
+    //     }        
+    //     return $this->render('create_product', ['model'=>$model]);
+    // }
 
-    public function actionSetProduct()
+
+    //old
+
+      public function actionSetProduct()
     {
         $model = new Product();
-        if(Yii::$app->request->isAjax)
-        {       
-            $model->image = $_POST['image'];
-            $model->image_name = $_POST['image_name'];
-        }
-        else if(Yii::$app->request->isPost)
+        $img_model = new ImageUpload;
+        if(Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
-            if($model->saveProduct(Yii::$app->user->id))
+            $file = UploadedFile::getInstance($img_model, 'image');
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
             {
                 return $this->redirect(['view','id'=>Yii::$app->user->id]);
             }
-        }        
-        return $this->render('create_product', ['model'=>$model]);
+        }
+        return $this->render('create_product', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
     }
 
     public function actionVacancy()

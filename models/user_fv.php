@@ -186,6 +186,11 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
         return $this->hasMany(Coment::className(), ['id_user' => 'id']);
     }
 
+    public function getPoint_Map()
+    {
+        return $this->hasMany(Point::className(), ['user_id' => 'id']);
+    }
+
     public function getCountAllOrders($user)
     {
         $count = Order::find()->Where(['user_check' => $user])->count();

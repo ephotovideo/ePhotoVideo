@@ -33,7 +33,7 @@ class Product extends ActiveRecord{
         return $this->hasOne(User_fv::className(), ['id' => 'id_user']);
     }  
 
-    public function getOrder()
+    public function getOrder()  
     {
         return $this->hasMany(Order::className(), ['id_product' => 'id']);
     } 
@@ -43,13 +43,13 @@ class Product extends ActiveRecord{
         return ($this->img) ? '/uploads/' . $this->img : '/uploads/no-image.jpg';
     }
 
-    public function saveProduct($id)
+    public function saveProduct($id,$img)
     {
         $product = new Product;
         $product->id_user = $id;
         $product->name_product  =  $this->name_product;
         $product->price_product  = $this->price_product;
-        $product->img = $this->saveImage();
+        $product->img = $img;//$this->saveImage();
         $product->status = 0;
 
         return $product->save(false);
