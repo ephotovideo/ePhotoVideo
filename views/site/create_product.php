@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use bupy7\cropbox\CropboxWidget;
 ?>
 <?php $form = ActiveForm::begin([
     'options' => ['enctype'=>'multipart/form-data'],
@@ -10,7 +11,11 @@ use yii\widgets\ActiveForm;
 <div class="container">
       <?= $form->field($model, 'name_product')->textInput()->label("Назва")?>
       <?= $form->field($model, 'price_product')->textInput(['placeholder'=>'$'])->label("Ціна")?>
-    <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'avatar-js-file-upload', 'style' => 'display: none;'])->label("Фото"); ?>
+	  <!-- $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'avatar-js-file-upload', 'style' => 'display: none;'])->label("Фото"); -->
+	<?= $form->field($img_model, 'image')->widget(CropboxWidget::className(), [
+        'croppedDataAttribute' => 'crop_info'
+    ]);
+      ?>
       <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

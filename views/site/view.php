@@ -36,12 +36,7 @@ use yii\bootstrap\ButtonDropdown;
                                              class="img-circle img-thumbnail img-fluid image">
                                     </div>
                                 </div>
-                                <?php if (Yii::$app->user->id == $user_one->id || $isAdmin == 1): ?>
-                                <a class="add_to_cart_button"
-                                       href="<?= Url::toRoute(['site/settings', 'id' => $user->id]); ?>">Налаштування
-                                        сторінки</a>
-                                    <br>
-                                    <?php else: ?>
+                                <?php if (Yii::$app->user->id === $user_one->id || $user_one->isAdmin === 1): ?>
                                     <a class="add_to_cart_button"
                                        href="<?= Url::toRoute(['site/settings', 'id' => Yii::$app->user->id]); ?>">Налаштування
                                         сторінки</a>
@@ -158,7 +153,7 @@ use yii\bootstrap\ButtonDropdown;
                             <div class="single-product">
                                 <div class="product-f-image">
                                     <div class="picture">
-                                        <?php if (Yii::$app->user->id == $user_one->id || $isAdmin): ?>
+                                        <?php if (Yii::$app->user->id == $user_one->id): ?>
                                             <img src="<?= $product->getImage_Product() ?>" alt="">
                                             <?= Html::a('X', ['delete-product', 'id' => $product->id], ['class' => 'btn btn-danger picture__button']) ?>
                                         <?php endif; ?>
@@ -198,7 +193,7 @@ use yii\bootstrap\ButtonDropdown;
                     <br>
                     <?php foreach ($contents as $content): ?>
                         <?php if ($content->type == "відео"): ?>
-                            <?php if (Yii::$app->user->id == $user_one->id || $isAdmin): ?>
+                            <?php if (Yii::$app->user->id == $user_one->id): ?>
                                 <?= Html::a('X', ['delete-content', 'id' => $content->id], ['class' => 'btn btn-default']) ?>
                             <?php endif; ?>
                             <iframe width="560" height="315"
@@ -217,7 +212,7 @@ use yii\bootstrap\ButtonDropdown;
                     <?php foreach ($contents as $content): ?>
                         <?php if ($content->type == "фото"): ?>
                             <div class="picture">
-                                <?php if (Yii::$app->user->id == $user_one->id || $isAdmin): ?>
+                                <?php if (Yii::$app->user->id == $user_one->id): ?>
                                     <img width="500px" src="<?= $content->getImage_content() ?>">
                                     <?= Html::a('X', ['delete-content', 'id' => $content->id,], ['class' => 'btn btn-default picture__button']) ?>
                                 <?php endif; ?>
@@ -236,7 +231,7 @@ use yii\bootstrap\ButtonDropdown;
         <?= Html::a('Додати Ваканцію', ['set-vacancy', 'id' => $user_one->id], ['class' => 'btn btn-default']) ?>
     <?php endif; ?>
     <?php foreach ($vacancies as $vacancy): ?>
-        <?php if (Yii::$app->user->id == $user_one->id || $isAdmin): ?>
+        <?php if (Yii::$app->user->id == $user_one->id): ?>
             <?= Html::a('X', ['delete-vacancy', 'id' => $vacancy->id], ['class' => 'btn btn-default']) ?>
         <?php endif; ?>
         <div class="row">

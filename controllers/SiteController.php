@@ -102,7 +102,6 @@ class SiteController extends Controller
 
        $count = User_fv::getCountAllOrders($id);
        $user_one = User_fv::findOne($id);
-       $isAdmin = $this->Admin(Yii::$app->user->id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
@@ -112,8 +111,7 @@ class SiteController extends Controller
             'contents' => $contents,
             'vacancies' => $vacancies,
             'products' => $products,
-            'count' => $count,
-            'isAdmin' => $isAdmin
+            'count' => $count
         ]
     );
     }
@@ -156,7 +154,7 @@ class SiteController extends Controller
                 return $this->redirect(['site/view/','id'=>$id]);
             }
         }
-        if($id != Yii::$app->user->identity->id)
+        if($id != Yii::$app->user->identity->id || $user_one->isAdmin != 1)
             throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
 
 
@@ -260,14 +258,6 @@ class SiteController extends Controller
         return $this->redirect(['raiting']);
     }
 
-    public function Admin()
-    {
-        $id = Yii::$app->user->id;
-        // $Admin = Yii::$app->db->createCommand('SELECT isAdmin FROM user WHERE id='.$id)->execute();
-        $Admin =  User_fv::find()->select('isAdmin')->where(['id' => $id])->one();
-         return $Admin;
-    }
-
     public function actionRaiting()
     {
         $model = new Raiting;
@@ -287,24 +277,46 @@ class SiteController extends Controller
             'model' => $model
             ]);
     }
+//new
+    // public function actionSetProduct()
+    // {
+    //     $model = new Product();
+    //     if(Yii::$app->request->isAjax)
+    //     {       
+    //         $model->image = $_POST['image'];
+    //         $model->image_name = $_POST['image_name'];
+    //     }
+    //     else if(Yii::$app->request->isPost)
+    //     {
+    //         $model->load(Yii::$app->request->post());
+    //         if($model->saveProduct(Yii::$app->user->id))
+    //         {
+    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
+    //         }
+    //     }        
+    //     return $this->render('create_product', ['model'=>$model]);
+    // }
 
-    public function actionSetProduct()
+
+    //old
+
+      public function actionSetProduct()
     {
         $model = new Product();
-        if(Yii::$app->request->isAjax)
-        {       
-            $model->image = $_POST['image'];
-            $model->image_name = $_POST['image_name'];
-        }
-        else if(Yii::$app->request->isPost)
+        $img_model = new ImageUpload;
+        if(Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
-            if($model->saveProduct(Yii::$app->user->id))
+            $file = UploadedFile::getInstance($img_model, 'image');
+            $filename = $img_model->uploadFile($file);
+            if($model->saveProduct(Yii::$app->user->id,$filename))
             {
                 return $this->redirect(['view','id'=>Yii::$app->user->id]);
             }
-        }        
-        return $this->render('create_product', ['model'=>$model]);
+        }
+        return $this->render('create_product', ['model'=>$model,
+        'img_model' => $img_model
+        ]);
     }
 
     public function actionVacancy()

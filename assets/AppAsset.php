@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
         'css/jquery-ui.css',
         'css/index.css',
         'css/view.css',
+        'css/view_point.css'
 
     ];
     public $js = [

@@ -90,10 +90,10 @@ AppAsset::register($this);
                     <ul class="nav navbar-nav list_margin_user">
                         <li><a href="/">Головна</a></li>
                         <li><a href="<?= Url::toRoute(['site/view', 'id'=>Yii::$app->user->id]);?>">Моя сторінка</a></li>
-                        <li><a href="/site/raiting">Шукати володарів фото\відео камер</a></li>
+                        <li><a href="/site/raiting">Рейтинг</a></li>
                         <li><a href="<?=Url::toRoute(['site/vacancy'])?>">ВАКАНСІЇ</a></li>
                         <li><a href="<?=Url::toRoute(['site/talking'])?>">Обговорення</a></li>
-                        <li><a href="<?=Url::toRoute(['map/index'])?>">Карта сокровіщ</a></li>
+                        <li><a href="<?=Url::toRoute(['map/index'])?>">Пошук локацій</a></li>
                         <!-- <li><a href="/site/login">Вийти</a></li> -->
                         <li>
                         <?= Html::beginForm(['/auth/logout'], 'post')

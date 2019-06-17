@@ -20,10 +20,19 @@ class User_content extends ActiveRecord{
     {
         return $this->hasOne(User_one::className(), ['id' => 'user_id']);
     }  
+    public function getPoint()
+    {
+        return $this->hasOne(Point::className(), ['id' => 'id_point']);
+    }  
     public function getImage_content()
     {
         return ($this->content) ? '/uploads/' . $this->content : '/uploads/no-image.jpg';
     }
+    public function getUser($id)
+    {
+        $user = User_fv::findOne($id);
+        return $user;
+    } 
     public function saveImage_content($filename,$type,$user_id)
     {
         $this->content = $filename;
