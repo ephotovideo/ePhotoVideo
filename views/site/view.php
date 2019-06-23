@@ -6,6 +6,8 @@ use yii\bootstrap\ButtonDropdown;
 
 ?>
 
+<link href="/examples/vendors/fancybox/jquery.fancybox.min.css" rel="stylesheet">
+
 <?php if (Yii::$app->user->id === $user_one->id): ?>
 <div class="product-big-title-area">
     <div class="container">
@@ -116,9 +118,7 @@ use yii\bootstrap\ButtonDropdown;
                         <?php if ($user_one->type == "Відеограф" || $user_one->type == "Фотограф"): ?>
                         <div class="about_" role="tabpanel">
                             <ul class="product-tab" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                                                                          data-toggle="tab">Опис</a></li>
-
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Опис</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="home">
@@ -182,10 +182,16 @@ use yii\bootstrap\ButtonDropdown;
             </div>
             <h2 class="related-products-title">Портфоліо</h2>
             <div id="tabs">
-                <ul>
-                    <li><a href="#tabs-1">Відео</a></li>
-                    <li><a href="#tabs-2">Фото</a></li>
+                <div class="col-md-12 col-lg-12">
+                <ul class="nav nav-tabs own">
+
+                    <li class="active"><a data-toggle="tab" href="#tabs-1">Відео</a></li>
+
+
+                    <li><a data-toggle="tab" href="#tabs-2">Фото</a></li>
+
                 </ul>
+            </div>
                 <div id="tabs-1" class="tab-content">
                     <?php if (Yii::$app->user->id == $user_one->id): ?>
                         <?= Html::a('Додати відео', ['set-video', 'id' => $user_one->id], ['class' => 'btn btn-default']) ?>
@@ -211,10 +217,12 @@ use yii\bootstrap\ButtonDropdown;
                     </div>
                     <?php foreach ($contents as $content): ?>
                         <?php if ($content->type == "фото"): ?>
-                            <div class="picture">
+                            <div class="picture grid-item">
                                 <?php if (Yii::$app->user->id == $user_one->id): ?>
-                                    <img width="500px" src="<?= $content->getImage_content() ?>">
+                                <a data-fancybox="gallery" href="<?= $content->getImage_content() ?>">
+                                    <img class="img-responsive" width="500px" src="<?= $content->getImage_content() ?>">
                                     <?= Html::a('X', ['delete-content', 'id' => $content->id,], ['class' => 'btn btn-default picture__button']) ?>
+                                </a>
                                 <?php endif; ?>
                             </div>
                         <?php endif; ?>
@@ -271,6 +279,24 @@ use yii\bootstrap\ButtonDropdown;
     <?php endif; ?>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
+    <script src="/examples/vendors/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!-- fancyBox JS -->
+    <script src="/examples/vendors/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/examples/vendors/gridify/gridify.js"></script>
+    <script>
+        $(function () {
+            var options =
+                {
+                    srcNode: 'img',             // grid items (class, node)
+                    margin: '15px',             // margin in pixel, default: 0px
+                    width: '240px',             // grid item width in pixel, default: 220px
+                    max_width: '',              // dynamic gird item width if specified, (pixel)
+                    resizable: true,            // re-layout if window resize
+                    transition: 'all 0.5s ease' // support transition for CSS3, default: all 0.5s ease
+                };
+            $('.grid').gridify(options);
+        });
+    </script>
     <script>
         $(function () {
             $("#tabs").tabs();

@@ -1,0 +1,16 @@
+#accordion h3 {
+    background-color: #ffbb00;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+.own div li
+{
+  color: black;
+}
