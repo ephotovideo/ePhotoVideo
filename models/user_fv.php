@@ -164,15 +164,11 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     {
         return $this->save(false);
     }
-    public function getRatingStar($id)
-    {
-        $mark = Yii::$app->db->createCommand('SELECT AVG(mark) FROM rating WHERE id_user_get ='.$id)->execute();
-        echo "<pre>";
-            print_r($mark);
-            echo "</pre>";
-            die;
-        return $mark;
-    }
+    // public function getRatingStar($id)
+    // {
+    //     $mark = Yii::$app->db->createCommand('SELECT AVG(mark) FROM rating WHERE id_user_get ='.$id)->execute();
+    //     return $mark;
+    // }
 
     public function saveImage()
     {
@@ -181,7 +177,7 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     }
     public function getImage()
     {
-        return ($this->img) ? '/uploads/' . $this->img : '/uploads/no-image.jpg';
+        return ($this->img) ? '/uploads2/' . $this->img : '/uploads/no-image.jpg';
     }
 
     public function getContent()
@@ -267,11 +263,10 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     }
     public function saveAvatar($id)
     {
-        // print_r($this->)
         $user = User_fv::findOne($id);
         $user->img = $this->saveImage_();
 
-        return $user->save();
+        return $user->save(false);
     }
     
 }

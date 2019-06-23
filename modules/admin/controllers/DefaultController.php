@@ -57,6 +57,8 @@ class DefaultController extends Controller
     {
         Yii::$app->db->createCommand('UPDATE user SET status=1 WHERE id ='.$id)
             ->execute();
+            Yii::$app->db->createCommand('DELETE FROM userlock WHERE id_user ='.$id)
+            ->execute();
         return $this->redirect(['index']);
     }
 //    public function actionBann($id)
@@ -93,9 +95,18 @@ class DefaultController extends Controller
         return $this->render('lock', ['model'=>$model_lock, 'date'=>$date]);
     }
     public function actionComplaint()
-    {// де контролер який переда модельку скарг? оно?да ну так де запит який передає дані
-        $compl = Complaint::find()->all();// select * from Complaint
-
-        return $this->render('complaint',['complaints' => $compl]);// кожна вюха має мати контролер!!!
+    {
+        $compl = Complaint::find()->all();
+        return $this->render('complaint',['complaints' => $compl]);
     }
+    public function actionDeleteComplaint($id)
+    {
+        $compl = Complaint::find()->where(['id'=>$id])->one();
+        $compl->delete();
+        return $this->redirect(['index']);
+    }
+
+
+
+
 }

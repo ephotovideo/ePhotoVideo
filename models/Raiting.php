@@ -19,7 +19,7 @@ class Raiting extends ActiveRecord{
     
     public function getImage_raiting()
     {
-        return ($this->img) ? '/uploads/' . $this->img : '/uploads/no-image.jpg';
+        return ($this->img) ? '/uploads2/' . $this->img : '/uploads/no-image.jpg';
     }
     public function getSearch()
     {

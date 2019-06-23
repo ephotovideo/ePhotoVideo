@@ -14,6 +14,7 @@ use app\models\Point;
 use app\models\SearchLocation;
 use app\models\ImageUpload;
 use app\models\User_content;
+use app\models\UserLock;
 use app\models\User_fv;
 
 
@@ -22,6 +23,7 @@ class MapController extends Controller
 {
     public function actionIndex()
     {
+        $this->isBlock();
         $model = new Point;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -33,11 +35,13 @@ class MapController extends Controller
 
     public function actionMap()
     {
+        $this->isBlock();
         return $this->render('search_map');
     }
 
     public function actionSetMarker()
     {
+        $this->isBlock();
         $model = new Point();
         $serch =new SearchLocation();
         if(Yii::$app->request->isAjax)
@@ -74,6 +78,7 @@ class MapController extends Controller
 
     public function actionView($id)
     {
+        $this->isBlock();
         $model = new Point();
         $point = Point::findOne($id);
         $contents = User_content::find()->where(['id_point'=> $id])->all();
@@ -87,6 +92,7 @@ class MapController extends Controller
     }
     public function actionAdd($id_user,$id_point)
     {
+        $this->isBlock();
         $contents = User_content::find()->where(['type'=> "фото"])->andWhere(['user_id' => $id_user])->all();
         $point = Point::findOne($id_point);
         return $this->render('add_content',
@@ -97,6 +103,7 @@ class MapController extends Controller
     }
     public function actionAddImg($id_content,$id_point,$img_content_name,$img_name_point)
     {
+        $this->isBlock();
         Yii::$app->db->createCommand('UPDATE user_content SET id_point='.$id_point.' '.' WHERE id ='.$id_content)
         ->execute();
         if($img_name_point = "no-image.jpg")
@@ -111,6 +118,7 @@ class MapController extends Controller
 
     public function actionViewPoints($id)
     {
+        $this->isBlock();
         $points = Point::find($id_point)->all();
         return $this->render('own',
         [
@@ -120,11 +128,21 @@ class MapController extends Controller
 
     public function actionDeletePoint($id)
     {
+        $this->isBlock();
         $point = Point::find()->where(['id'=>$id])->one();
         $point->delete();
 
         return $this->redirect(['map/view-points', 'id' => Yii::$app->user->id]);
     }
+    public function isBlock()
+    {
+        $lock = UserLock::find()->where(['id_user' => Yii::$app->user->id])->one();
+        if($lock)
+        {
+            return $this->redirect(['site/block']);
+        }
+    }
+
 
 
 }

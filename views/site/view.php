@@ -32,10 +32,9 @@ use yii\helpers\Json;
                                 <div class="product-main-img">
                                     <!--                                    <img src="-->
                                     <? //= $user_one->getImage()?><!--" alt="">-->
-                                    <div class="box">
-                                        <img src="<?= $user_one->getImage() ?>" alt=""
-                                             class="img-circle img-thumbnail img-fluid image">
-                                    </div>
+                              
+                                        <img src="<?= $user_one->getImage() ?>" alt="">
+                                    
                                 </div>
                                 <?php if (Yii::$app->user->id === $user_one->id || $user_one->isAdmin === 1): ?>
                                     <a class="add_to_cart_button"

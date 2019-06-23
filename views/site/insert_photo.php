@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($user, 'image')->fileInput(['maxlength' => true, 'class'=>'_avatar-js-file-upload_', 'style' => 'display: none;'])->label("Фото"); ?>
+    <?= $form->field($model, 'image')->fileInput(['maxlength' => true, 'class'=>'_avatar-js-file-upload_', 'style' => 'display: none;'])->label("Фото"); ?>
     
     <?php ActiveForm::end(); ?>
    
@@ -94,12 +94,12 @@ $("._avatar-js-file-upload_").on("change", function(e){
   $image_crop = $('#__avatar_demo').croppie({
     enableExif: false,
     viewport: {
-      width: 550,
+      width: 750,
       height:550,
-      type:'circle' //square circle
+      type:'square' //square circle
     },
     boundary:{
-      width:550,
+      width:750,
       height:550
     }
   })
@@ -127,7 +127,7 @@ $('.btn-danger').click(function(event){
    // formData.append('action', 'upload-avatar-image');
 
     $.ajax({
-      url: "/site/set-image/"+id,
+      url: "/site/set-content/"+id,
       type: 'POST',
       data: formData,
         success: function(){

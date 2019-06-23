@@ -79,6 +79,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->isBlock();
         return $this->render('index');
     }
 
@@ -101,7 +102,7 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-       $this->isBlock();
+        $this->isBlock();
        $count = User_fv::getCountAllOrders($id);
        $user_one = User_fv::findOne($id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
@@ -122,7 +123,7 @@ class SiteController extends Controller
 
     public function actionSetMark($id_user_set,$id_user_get)
     {
-
+        $this->isBlock();
         $mark_set = new RatingStar();
         if(Yii::$app->request->isAjax)
         {
@@ -144,6 +145,7 @@ class SiteController extends Controller
 
     public function actionOrder($id)
     {
+        $this->isBlock();
         $products = Product::find()->where(['id_user'=> $id])->all();
         $orders = Order::find()->where(['user_check'=> $id])->andWhere(['=', 'status', 0])->all();
         //$count = Yii::$app->db->createCommand('SELECT count(*) FROM `Order` where user_check = 1  '.$id);
@@ -156,18 +158,21 @@ class SiteController extends Controller
 
     public function actionSetOrder($user_check,$user_create,$product)
     {
+        $this->isBlock();
         Order::saveOrder($user_check,$user_create,$product);
         return $this->redirect(['site/view/','id'=>$user_check]);
     } 
     
     public function actionDeleteOrder($id)
     {
+        $this->isBlock();
         Yii::$app->db->createCommand('UPDATE `Order` SET `status` =1 WHERE id ='.$id)->execute();
         return $this->redirect(['site/order/','id'=>Yii::$app->user->id]);
     } 
 
     public function actionSettings($id)
     {
+        $this->isBlock();
         $user_one = User_fv::findOne($id);
         if(!$user_one)
             throw new \yii\web\NotFoundHttpException("Користувач не знайдений");
@@ -191,26 +196,11 @@ class SiteController extends Controller
     );
     }
 
-    //old
-    // public function actionSetImage($id)
-    // {
-    //     $model = new ImageUpload;
-    //     if (Yii::$app->request->isPost)
-    //     {
-    //         $user = User_fv::findOne($id);
-    //         $file = UploadedFile::getInstance($model, 'image');
-
-    //         if($user->saveImage($model->uploadFile($file, $user->img)))
-    //         {
-    //             return $this->redirect(['site/settings', 'id'=>$user->id]);
-    //         }
-    //     }
-    //     return $this->render('upload_avatar', ['model'=>$model]);
-    // }
 
     //new
       public function actionSetImage($id)
     {
+        $this->isBlock();
         $user = new User_fv;
         if (Yii::$app->request->isPost)
         {
@@ -218,33 +208,35 @@ class SiteController extends Controller
             $user->image = $_POST['image'];
             $user->image_name = $_POST['image_name'];
 
-            if($user->saveImage_($id))
+            if($user->saveAvatar($id))
             {
-                return $this->redirect(['site/settings', 'id'=>$user->id]);
+                return $this->redirect(['site/settings', 'id'=>$id]);
             }
         }
-        return $this->render('upload_avatar', ['user'=>$user]);
+        return $this->render('upload_avatar', ['user'=>$user,'id' => $id]);
     }
 
     public function actionSetContent($id)
     {
-        $model = new ImageUpload;
+        $this->isBlock();
+        $model = new User_content();;
         if (Yii::$app->request->isPost)
         {
-            $user = new User_content;
-            $file = UploadedFile::getInstance($model, 'image');
+            $model->image = $_POST['image'];
+            $model->image_name = $_POST['image_name'];
 
-            if($user->saveImage_content($model->uploadFile($file),"фото",$id))
+            if($model->saveImage_content("фото",$id))
             {
                 return $this->redirect(['site/view', 'id'=>$id]);
             }
         }
         
-        return $this->render('upload_avatar', ['model'=>$model]);
+        return $this->render('insert_photo', ['model'=>$model, 'id' => $id]);
     }
 
     public function actionSetVideo()
-    {     
+    {   
+        $this->isBlock();
         $model = new User_content();
         if(Yii::$app->request->isPost)
         {
@@ -259,6 +251,7 @@ class SiteController extends Controller
 
     public function actionSetVacancy()
     {     
+        $this->isBlock();
         $model = new Vacancy();
         if(Yii::$app->request->isPost)
         {
@@ -280,14 +273,10 @@ class SiteController extends Controller
         return $this->render('field');
     }
 
-    public function actionLock()
-    {
-         Yii::$app->db->createCommand('UPDATE user SET status=0 WHERE id=1')->execute();
-        return $this->redirect(['raiting']);
-    }
 
     public function actionRaiting()
     {
+        $this->isBlock();
         $model = new Raiting;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -308,6 +297,7 @@ class SiteController extends Controller
 
     public function actionProductSerch()
     {
+        $this->isBlock();
         $model = new Product;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -328,6 +318,7 @@ class SiteController extends Controller
 //new
     public function actionSetProduct()
     {
+        $this->isBlock();
         $model = new Product();
         if(Yii::$app->request->isAjax)
         {
@@ -377,6 +368,7 @@ class SiteController extends Controller
 
     public function actionVacancy()
     {
+        $this->isBlock();
         $model = new Vacancy;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -399,6 +391,7 @@ class SiteController extends Controller
 
     public function actionDeleteContent($id)
     {
+        $this->isBlock();
         $content = User_content::find()->where(['id'=>$id])->one();
         $content->delete();
 
@@ -406,6 +399,7 @@ class SiteController extends Controller
     }
     public function actionDeleteVacancy($id)
     {
+        $this->isBlock();
         $content = Vacancy::find()->where(['id'=>$id])->one();
         $content->delete();
 
@@ -414,6 +408,7 @@ class SiteController extends Controller
 
     public function actionDeleteProduct($id)
     {
+        $this->isBlock();
         $prod = Product::find()->where(['id'=>$id])->one();
         Order::deleteAll(['id_product' => $id]);
         $prod->delete();
@@ -425,6 +420,7 @@ class SiteController extends Controller
 
     public function actionTalking()
     {
+        $this->isBlock();
         $query = Talking::find();
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>3]);
@@ -437,6 +433,7 @@ class SiteController extends Controller
 
     public function actionComplaint($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason,$url)
     {
+        $this->isBlock();
         $model = new Complaint();
         $model->setCompl($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason);
         return $this->redirect([$url]);
@@ -444,6 +441,7 @@ class SiteController extends Controller
     }
     public function actionViewTalking($id)
     {
+        $this->isBlock();
        $model = new Coment();
        $talking = Talking::findOne($id);
        $compl = new Complaint();
@@ -467,6 +465,7 @@ class SiteController extends Controller
     }
     public function actionSetTalking()
     {     
+        $this->isBlock();
         $model = new Talking();
         if(Yii::$app->request->isPost)
         {
@@ -479,7 +478,8 @@ class SiteController extends Controller
         return $this->render('insert_talking', ['model'=>$model]);
     }
     public function actionMyTalking()
-    {     
+    {    
+        $this->isBlock();
         $query = Talking::find()->where(['user_create'=>Yii::$app->user->id]);
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>4]);
@@ -492,15 +492,17 @@ class SiteController extends Controller
 
     public function isBlock()
     {
-        $user_one = User_fv::findOne(Yii::$app->user->id);
-        if($user_one->status === 0)
+        $lock = UserLock::find()->where(['id_user' => Yii::$app->user->id])->one();
+        if($lock)
         {
-            // echo "<pre>";
-            // print_r("you blocked");
-            // echo "</pre>";
-            // die;
-            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
+            return $this->redirect(['block']);
         }
+    }
+
+    public function actionBlock()
+    {
+        $lock = UserLock::find()->where(['id_user' => Yii::$app->user->id])->one();
+        return $this->render('block', ['lock'=>$lock]);
     }
 
     
