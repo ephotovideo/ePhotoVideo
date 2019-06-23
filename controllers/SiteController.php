@@ -479,6 +479,10 @@ class SiteController extends Controller
         ]
     );
     }
+    public function actionPolisy()
+    {
+        return $this->render('polisy');
+    }
     public function actionSetTalking()
     {     
         

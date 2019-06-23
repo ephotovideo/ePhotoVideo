@@ -121,7 +121,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-md-8">
                     <div class="copyright">
-                        <p>&copy; 2019 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by <a href="http://wpexpand.com" target="_blank">WP Expand</a></p>
+                        <p>&copy; 2019 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i>  <a href="<?=Url::toRoute(['site/polisy'])?>">Політика правил та кофіденційності</a></p>
                     </div>
                 </div>
                 
