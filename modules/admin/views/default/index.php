@@ -63,8 +63,9 @@ use yii\widgets\LinkPager;
                     <td><?= Html::a('Розблукувати', ['unlock','id'=>$user->id], ['class' => 'btn btn-default']) ?></td>
                 <?php endif;?>
             </tr>
-            <?php endforeach; ?>
             <tbody>
+            <?php endforeach; ?>
+
         </table>
     </div>
     <h2>Activate Modal with JavaScript</h2>

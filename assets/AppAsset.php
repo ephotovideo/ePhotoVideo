@@ -28,16 +28,17 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/owl.carousel.css',
         'css/style.css',
-        'css/jquery-ui.css',
+       // 'css/jquery-ui.css',
         'css/admin.css',
         'css/vacancy.css',
         'css/responsive.css',
         'css/form-reg.css',
         'css/raiting.css',
-        'css/jquery-ui.css',
+      //  'css/jquery-ui.css',
         'css/index.css',
         'css/view.css',
-        'css/view_point.css'
+        'css/view_point.css',
+        'css/order.css'
 
     ];
     public $js = [
@@ -48,6 +49,7 @@ class AppAsset extends AssetBundle
         'js/jquery.easing.1.3.min.js',
         'js/main.js',
         'js/crop.js',
-        'js/croppie.js'
+        'js/croppie.js',
+        'js/gridify.js'
     ];
 }
