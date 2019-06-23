@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\Slider;
 ?>
 
     
@@ -25,38 +26,76 @@ use yii\widgets\ActiveForm;
             <div class="footer-newsletter">
                 <div class="newsletter-form">
                      
-                     <?php $form = ActiveForm::begin(); ?>
-                      <div class="col-lg-4 col-md-4 col-sm-12">
-                         <?= $form->field($model, 'city')->dropDownList([
-        'Вся Україна' => 'Вся Україна',
-        'Дніпро' => 'Дніпро',
-        'Чернігів' => 'Чернігів',
-        'Харків' => 'Харків',
-        'Житомир' => 'Житомир',
-        'Одеса' => 'Одеса',
-        'Хмельницький' => 'Хмельницький',
-        'Полтава' => 'Полтава',
-        'Херсон' => 'Херсон',
-        'Київ' => 'Київ',
-        'Запоріжжя' => 'Запоріжжя',
-        'Вінниця' => 'Вінниця',
-        'Миколаїв' => 'Миколаїв',
-        'Кропивницький' => 'Кропивницький',
-        'Суми' => 'Суми',
-        'Львів' => 'Львів',
-        'Черкаси' => 'Черкаси',
-        'Чернівці' => 'Чернівці',
-        'Волинь' => 'Волинь',
-        'Рівне' => 'Рівне',
-        'Івано=Франківськ' => 'Чернівці',
-        'Тернопіль' => 'Тернопіль',
-        'Ужгород' => 'Ужгород',
-    ])->label("Місто");?>
-    </div>
+                <?php $form = ActiveForm::begin(); ?>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <?= $form->field($model, 'city')->dropDownList([
+                        'Вся Україна' => 'Вся Україна',
+                        'Дніпро' => 'Дніпро',
+                        'Чернігів' => 'Чернігів',
+                        'Харків' => 'Харків',
+                        'Житомир' => 'Житомир',
+                        'Одеса' => 'Одеса',
+                        'Хмельницький' => 'Хмельницький',
+                        'Полтава' => 'Полтава',
+                        'Херсон' => 'Херсон',
+                        'Київ' => 'Київ',
+                        'Запоріжжя' => 'Запоріжжя',
+                        'Вінниця' => 'Вінниця',
+                        'Миколаїв' => 'Миколаїв',
+                        'Кропивницький' => 'Кропивницький',
+                        'Суми' => 'Суми',
+                        'Львів' => 'Львів',
+                        'Черкаси' => 'Черкаси',
+                        'Чернівці' => 'Чернівці',
+                        'Волинь' => 'Волинь',
+                        'Рівне' => 'Рівне',
+                        'Івано=Франківськ' => 'Чернівці',
+                        'Тернопіль' => 'Тернопіль',
+                        'Ужгород' => 'Ужгород',
+                    ])->label("Місто");?>
+                <p>
+                    <label for="amount">Price range:</label>
+                    <input type="text" 
+                        id="amount" 
+                        readonly 
+                        style="border:0; color:#f6931f; font-weight:bold;" 
+                        value="$<?= $model->min_price?> - $<?=$model->max_price?>">
+                </p>
+                <?= Slider::widget([
+                    // 'name'=>'price_range',
+                    // 'value'=> $min_price . ',' . $max_price,
+                    // 'sliderColor' => Slider::TYPE_GREY,
+                    'clientOptions'=>[
+                        'min' => intval($min_price),
+                        'max' => intval($max_price),
+                        // 'step' => 10,
+                        'range' => true,
+                        'values' => [
+                            $model->min_price,
+                            $model->max_price
+                        ],
+                        
+                    ],
+                    'clientEvents' => [
+                        'slide' => "function(event, ui ) {
+                            $('#price-min').val(ui.values[ 0 ]);
+                            $('#price-max').val(ui.values[ 1 ]);
+                            $( '#amount' ).prop('value',  '$' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ] );
+                          }"
+                    ]
+                ]);?>
+                <div class="hidden">
+                
+                <?= $form->field($model, 'min_price')->hiddenInput(['id' => 'price-min'])?>
+                <?= $form->field($model, 'max_price')->hiddenInput(['id' => 'price-max'])?>
+                </div>
+            </div>
+            <br>
+            <br>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Шукати', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Шукати', ['class' => 'btn btn-primary', 'name' => 'login-button', 'data-method' => 'GET']) ?>
             </div>
         </div>
         </div>

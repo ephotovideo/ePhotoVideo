@@ -30,6 +30,17 @@ class Complaint extends ActiveRecord
         $compl->date = new Expression('NOW()');
         return $compl->save(false);
     }
+    public function getUser_fv()
+    {
+        return $this->hasOne(User_fv::className(), ['id' => 'user_create']);
+    } 
+
+    public function getUser($id)
+    {
+        $user = User_fv::findOne($id);
+        return $user;
+    } 
+
 
 
 }
