@@ -109,9 +109,9 @@ use yii\widgets\ActiveForm;
                                         <div class="price-info product-inner-price">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <img src="/img/logo/pen.png">
+                                                    <img  width="32px" src="/img/logo/chart.png">
                                                     <span class="d-inline-block text-truncate" style="max-width: 150px;">
-                                                    <p class="text-justify"><?= $user->description ?></p>
+                                                    <p class="text-justify"><?=number_format($user->mark, 2, '.', '') ?></p>
                                                     </span>
                                                 </div>
                                             </div>

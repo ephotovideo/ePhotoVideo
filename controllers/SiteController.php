@@ -20,10 +20,12 @@ use app\models\User_content;
 use app\models\Product;
 use app\models\Order;
 use app\models\Complaint;
+use app\models\RatingStar;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 use app\models\UserLock;
 use yii\db\Expression;
+
 
 class SiteController extends Controller
 {
@@ -99,21 +101,45 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-
+       $this->isBlock();
        $count = User_fv::getCountAllOrders($id);
        $user_one = User_fv::findOne($id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
        $vacancies = Vacancy::find()->where(['id_user'=> $id])->all();
        $products = Product::find()->where(['id_user'=> $id])->all();
+       $mark = RatingStar::getMark($id);
         return $this->render('view',
         [
             'user_one'=>$user_one,
             'contents' => $contents,
             'vacancies' => $vacancies,
             'products' => $products,
-            'count' => $count
+            'count' => $count,
+           'mark' =>$mark
         ]
     );
+    }
+
+    public function actionSetMark($id_user_set,$id_user_get)
+    {
+
+        $mark_set = new RatingStar();
+        if(Yii::$app->request->isAjax)
+        {
+            session_start();
+            $_SESSION['count']=$_POST['count'];
+            $mark = $_SESSION['count'];
+            unset($_SESSION['count']);
+            
+            
+            if($mark_set->setMark($id_user_set,$id_user_get, $mark))
+            {
+                die;
+            }
+        }
+        
+        return $this->redirect(['map/index', 'id'=>$id_user_get]);
+        
     }
 
     public function actionOrder($id)
@@ -165,20 +191,39 @@ class SiteController extends Controller
     );
     }
 
-    public function actionSetImage($id)
+    //old
+    // public function actionSetImage($id)
+    // {
+    //     $model = new ImageUpload;
+    //     if (Yii::$app->request->isPost)
+    //     {
+    //         $user = User_fv::findOne($id);
+    //         $file = UploadedFile::getInstance($model, 'image');
+
+    //         if($user->saveImage($model->uploadFile($file, $user->img)))
+    //         {
+    //             return $this->redirect(['site/settings', 'id'=>$user->id]);
+    //         }
+    //     }
+    //     return $this->render('upload_avatar', ['model'=>$model]);
+    // }
+
+    //new
+      public function actionSetImage($id)
     {
-        $model = new ImageUpload;
+        $user = new User_fv;
         if (Yii::$app->request->isPost)
         {
-            $user = User_fv::findOne($id);
-            $file = UploadedFile::getInstance($model, 'image');
+            
+            $user->image = $_POST['image'];
+            $user->image_name = $_POST['image_name'];
 
-            if($user->saveImage($model->uploadFile($file, $user->img)))
+            if($user->saveImage_($id))
             {
                 return $this->redirect(['site/settings', 'id'=>$user->id]);
             }
         }
-        return $this->render('upload_avatar', ['model'=>$model]);
+        return $this->render('upload_avatar', ['user'=>$user]);
     }
 
     public function actionSetContent($id)
@@ -226,24 +271,7 @@ class SiteController extends Controller
         return $this->render('insert_vacancy', ['model'=>$model]);
     }
 
-    // public function actionSetProduct()
-    // {     
-    //     $model = new Product();
-    //     $img_model = new ImageUpload;
-    //     if(Yii::$app->request->isAjax)
-    //     {
-    //         $model->load(Yii::$app->request->post());
-    //         $file = UploadedFile::getInstance($img_model, 'image');
-    //         $filename = $img_model->uploadFile($file);
-    //         if($model->saveProduct(Yii::$app->user->id,$filename))
-    //         {
-    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
-    //         }
-    //     }
-    //     return $this->render('create_product', ['model'=>$model,
-    //     'img_model' => $img_model
-    //     ]);
-    // }
+
 
 
 
@@ -266,7 +294,7 @@ class SiteController extends Controller
             $query=$model->getSearch();
         }
         else{
-            $query = Raiting::find()->Where(['>', 'status', 0]);
+            $query = Raiting::find()->Where(['>', 'status', 0])->orderBy(['mark' => SORT_DESC]);
         }
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>4]);
@@ -277,47 +305,75 @@ class SiteController extends Controller
             'model' => $model
             ]);
     }
+
+    public function actionProductSerch()
+    {
+        $model = new Product;
+        if(Yii::$app->request->isPost){
+            $model->load(Yii::$app->request->post());
+            $query=$model->getSearch();
+        }
+        else{
+            $query = Product::find()->Where([ 'city' => 'Вся Україна']);
+        }
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count,'pageSize'=>6]);
+        $products = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+        return $this->render('products',[
+            'products'=>$products,
+            'pagination'=>$pagination,
+            'model' => $model
+            ]);
+    }
 //new
-    // public function actionSetProduct()
-    // {
-    //     $model = new Product();
-    //     if(Yii::$app->request->isAjax)
-    //     {       
-    //         $model->image = $_POST['image'];
-    //         $model->image_name = $_POST['image_name'];
-    //     }
-    //     else if(Yii::$app->request->isPost)
-    //     {
-    //         $model->load(Yii::$app->request->post());
-    //         if($model->saveProduct(Yii::$app->user->id))
-    //         {
-    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
-    //         }
-    //     }        
-    //     return $this->render('create_product', ['model'=>$model]);
-    // }
+    public function actionSetProduct()
+    {
+        $model = new Product();
+        if(Yii::$app->request->isAjax)
+        {
+            
+            $modelData = [];
+            parse_str(Yii::$app->request->post('productData'), $modelData);
+            $model->load($modelData);
+
+            $model->image = $_POST['image'];
+            $model->image_name = $_POST['image_name'];
+
+
+            // echo "<pre>";
+            // print_r(Yii::$app->request->post());
+            // echo "</pre>";
+            // die;
+
+            if($model->saveProduct(Yii::$app->user->id))
+            {
+                return $this->redirect(['view','id'=>Yii::$app->user->id]);
+            }
+        }        
+        return $this->render('create_product', ['model'=>$model]);
+    }
 
 
     //old
 
-      public function actionSetProduct()
-    {
-        $model = new Product();
-        $img_model = new ImageUpload;
-        if(Yii::$app->request->isPost)
-        {
-            $model->load(Yii::$app->request->post());
-            $file = UploadedFile::getInstance($img_model, 'image');
-            $filename = $img_model->uploadFile($file);
-            if($model->saveProduct(Yii::$app->user->id,$filename))
-            {
-                return $this->redirect(['view','id'=>Yii::$app->user->id]);
-            }
-        }
-        return $this->render('create_product', ['model'=>$model,
-        'img_model' => $img_model
-        ]);
-    }
+    //   public function actionSetProduct()
+    // {
+    //     $model = new Product();
+    //     $img_model = new ImageUpload;
+    //     if(Yii::$app->request->isPost)
+    //     {
+    //         $model->load(Yii::$app->request->post());
+    //         $file = UploadedFile::getInstance($img_model, 'image');
+    //         $filename = $img_model->uploadFile($file);
+    //         if($model->saveProduct(Yii::$app->user->id,$filename))
+    //         {
+    //             return $this->redirect(['view','id'=>Yii::$app->user->id]);
+    //         }
+    //     }
+    //     return $this->render('create_product', ['model'=>$model,
+    //     'img_model' => $img_model
+    //     ]);
+    // }
 
     public function actionVacancy()
     {
@@ -359,6 +415,7 @@ class SiteController extends Controller
     public function actionDeleteProduct($id)
     {
         $prod = Product::find()->where(['id'=>$id])->one();
+        Order::deleteAll(['id_product' => $id]);
         $prod->delete();
 
         return $this->redirect(['view', 'id'=>Yii::$app->user->id]);
@@ -433,7 +490,19 @@ class SiteController extends Controller
             ]);
     }
 
-  
+    public function isBlock()
+    {
+        $user_one = User_fv::findOne(Yii::$app->user->id);
+        if($user_one->status === 0)
+        {
+            // echo "<pre>";
+            // print_r("you blocked");
+            // echo "</pre>";
+            // die;
+            throw new \yii\web\ForbiddenHttpException("У вас немає прав для редагування даного користувача");
+        }
+    }
 
+    
 
 }

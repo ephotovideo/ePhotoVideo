@@ -1,10 +1,15 @@
 <?php
 namespace app\models;
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\db\Expression;
+use yii\db\Query;
 
 class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
 
+    public $image;
+    public $image_name;
     public static function tableName(){
         return 'user';
     }  
@@ -24,7 +29,9 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
             [['facebook'], 'string'],
             [['instagram'], 'string'],
             [['description'], 'string'],
-            [['email'], 'unique', 'targetClass'=>'app\models\User_fv', 'targetAttribute'=>'email']
+            [['email'], 'unique', 'targetClass'=>'app\models\User_fv', 'targetAttribute'=>'email'],
+            [['img'],'string'],
+            [['image'], 'file', 'extensions' => 'jpg,png']
         ];
     }
 
@@ -153,9 +160,21 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     {
         return $this->save(false);
     }
+    public function getRating()
+    {
+        return $this->save(false);
+    }
+    public function getRatingStar($id)
+    {
+        $mark = Yii::$app->db->createCommand('SELECT AVG(mark) FROM rating WHERE id_user_get ='.$id)->execute();
+        echo "<pre>";
+            print_r($mark);
+            echo "</pre>";
+            die;
+        return $mark;
+    }
 
-
-    public function saveImage($filename)
+    public function saveImage()
     {
         $this->img = $filename;
         return $this->save(false);
@@ -203,5 +222,56 @@ class User_fv extends ActiveRecord implements \yii\web\IdentityInterface{
     //
     //
     // }
+
+
+    public function uploadFile() //$currentImage
+    {
+      //  $this->image = $file;
+       
+       
+       if($this->validate())
+       {
+         return $this->saveImage();
+       }
+    }
+
+    private function generateFilename($baseName)
+    {
+        return strtolower(md5(uniqid($baseName)) . '.' . 'jpg');
+    }
+    public function saveImage_()
+    {
+
+        $image_array = explode(",", $this->image);
+        $data = base64_decode($image_array[1]);
+
+
+        $expl = explode(".", $this->image_name);
+        $baseName = $expl[0];
+        $filename = $this->generateFilename($baseName);
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/uploads2';
+        $target = $path . '/' . $filename;
+
+       if(!file_exists($path))
+            mkdir($path, 0777, true);
+
+       
+        @chmod($target, 0777);
+
+        $stream = fopen( $target, 'w+');
+       
+        fwrite($stream, $data);
+
+        fclose($stream);
+        return $filename;
+    }
+    public function saveAvatar($id)
+    {
+        // print_r($this->)
+        $user = User_fv::findOne($id);
+        $user->img = $this->saveImage_();
+
+        return $user->save();
+    }
     
 }

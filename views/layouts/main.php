@@ -21,6 +21,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
    
@@ -91,6 +92,7 @@ AppAsset::register($this);
                         <li><a href="/">Головна</a></li>
                         <li><a href="<?= Url::toRoute(['site/view', 'id'=>Yii::$app->user->id]);?>">Моя сторінка</a></li>
                         <li><a href="/site/raiting">Рейтинг</a></li>
+                        <li><a href="/site/product-serch">Пошук послуг</a></li>
                         <li><a href="<?=Url::toRoute(['site/vacancy'])?>">ВАКАНСІЇ</a></li>
                         <li><a href="<?=Url::toRoute(['site/talking'])?>">Обговорення</a></li>
                         <li><a href="<?=Url::toRoute(['map/index'])?>">Пошук локацій</a></li>

@@ -3,11 +3,6 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Json;
-
-// echo "<pre>";
-//             print_r($points);
-//             echo "</pre>";
-//             die;
 ?>
  <head>
 

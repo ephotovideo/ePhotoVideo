@@ -16,9 +16,10 @@ class Product extends ActiveRecord{
     public function rules()
     {
         return [
-            [['name_product', 'price_product','image'], 'required'],
+            [['name_product', 'price_product','city'], 'required'],
             [['name_product'], 'string'],
             [['price_product'],'string'],
+            [['city'],'string'],
             [['img'],'string'],
             [['image'], 'file', 'extensions' => 'jpg,png']
         ];
@@ -32,7 +33,11 @@ class Product extends ActiveRecord{
     {
         return $this->hasOne(User_fv::className(), ['id' => 'id_user']);
     }  
-
+    public function getUser($id)
+    {
+        $user = User_fv::findOne($id);
+        return $user;
+    } 
     public function getOrder()  
     {
         return $this->hasMany(Order::className(), ['id_product' => 'id']);
@@ -40,19 +45,26 @@ class Product extends ActiveRecord{
      
     public function getImage_Product()
     {
-        return ($this->img) ? '/uploads/' . $this->img : '/uploads/no-image.jpg';
+        return ($this->img) ? '/uploads2/' . $this->img : '/uploads2/no-image.jpg';
     }
 
-    public function saveProduct($id,$img)
+    public function saveProduct($id)
     {
+        // print_r($this->)
         $product = new Product;
         $product->id_user = $id;
         $product->name_product  =  $this->name_product;
+        $product->city  =  $this->city;
         $product->price_product  = $this->price_product;
-        $product->img = $img;//$this->saveImage();
+        $product->img = $this->saveImage();
         $product->status = 0;
 
         return $product->save(false);
+    }
+    public function getSearch()
+    {
+       $sql = Product::find()->FilterWhere(['like','city', $this->city]);
+        return $sql;
     }
 
     public function countOrder($user,$product)
@@ -60,9 +72,9 @@ class Product extends ActiveRecord{
         $count = Order::find()->Where(['=', 'status', 0])->andwhere(['user_check' => $user])->andwhere(['id_product' => $product])->count();
         return $count;
     }
-    public function uploadFile($file) //$currentImage
+    public function uploadFile() //$currentImage
     {
-        $this->image = $file;
+      //  $this->image = $file;
        
        
        if($this->validate())
@@ -82,24 +94,35 @@ class Product extends ActiveRecord{
     }
     public function saveImage()
     {
-        $image_array_1 = explode(";", $this->image);
-        $image_array_2 = explode(",", $image_array_1[1]);
-        $data = base64_decode($image_array_2[1]);
+        // $image_array_1 = explode(";", $this->image);
+        // $image_array_2 = explode(",", $image_array_1[1]);
+
+        $image_array = explode(",", $this->image);
+        // ob_start();
+        $data = base64_decode($image_array[1]);
+
+        // print_r($data);
+
+        // return ob_get_clean();
 
         $expl = explode(".", $this->image_name);
         $baseName = $expl[0];
         $filename = $this->generateFilename($baseName);
-        $path = Yii::getAlias('@web') . '/uploads/'. $filename;
-       // $target = $path . '/' . $filename;
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/uploads2';
+        $target = $path . '/' . $filename;
 
-        if(!file_exists($path))
+       if(!file_exists($path))
             mkdir($path, 0777, true);
 
-        $stream = fopen($path, 'w');
-       // chmod($path, 0777);
+       
+        @chmod($target, 0777);
+
+        $stream = fopen( $target, 'w+');
+       
         fwrite($stream, $data);
 
         fclose($stream);
+       //
        //file_put_contents($path, $data);
       // chmod($path, 0777);
         return $filename;
