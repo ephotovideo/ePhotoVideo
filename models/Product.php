@@ -9,6 +9,10 @@ class Product extends ActiveRecord{
     public $image;
     public $image_name;
     public $folder;
+
+    public $min_price;
+    public $max_price;
+
     public static function tableName()
     {
         return 'Products';
@@ -18,7 +22,7 @@ class Product extends ActiveRecord{
         return [
             [['name_product', 'price_product','city'], 'required'],
             [['name_product'], 'string'],
-            [['price_product'],'string'],
+            [['price_product', 'min_price', 'max_price'],'string'],
             [['city'],'string'],
             [['img'],'string'],
             [['image'], 'file', 'extensions' => 'jpg,png']
@@ -63,7 +67,9 @@ class Product extends ActiveRecord{
     }
     public function getSearch()
     {
-       $sql = Product::find()->FilterWhere(['like','city', $this->city]);
+        $sql = Product::find()
+            ->FilterWhere(['like','city', $this->city])
+            ->andFilterWhere(['between', 'price_product', $this->min_price, $this->max_price]);
         return $sql;
     }
 

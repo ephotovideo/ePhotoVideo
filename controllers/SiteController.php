@@ -25,6 +25,7 @@ use yii\data\Pagination;
 use yii\web\UploadedFile;
 use app\models\UserLock;
 use yii\db\Expression;
+use yii\db\Query;
 
 
 class SiteController extends Controller
@@ -72,6 +73,11 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action){
+        $this->isBlock();
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
@@ -79,7 +85,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->isBlock();
+        
         return $this->render('index');
     }
 
@@ -102,7 +108,7 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-        $this->isBlock();
+        
        $count = User_fv::getCountAllOrders($id);
        $user_one = User_fv::findOne($id);
        $contents = User_content::find()->where(['user_id'=> $id])->all();
@@ -123,7 +129,7 @@ class SiteController extends Controller
 
     public function actionSetMark($id_user_set,$id_user_get)
     {
-        $this->isBlock();
+        
         $mark_set = new RatingStar();
         if(Yii::$app->request->isAjax)
         {
@@ -145,7 +151,7 @@ class SiteController extends Controller
 
     public function actionOrder($id)
     {
-        $this->isBlock();
+        
         $products = Product::find()->where(['id_user'=> $id])->all();
         $orders = Order::find()->where(['user_check'=> $id])->andWhere(['=', 'status', 0])->all();
         //$count = Yii::$app->db->createCommand('SELECT count(*) FROM `Order` where user_check = 1  '.$id);
@@ -158,21 +164,21 @@ class SiteController extends Controller
 
     public function actionSetOrder($user_check,$user_create,$product)
     {
-        $this->isBlock();
+        
         Order::saveOrder($user_check,$user_create,$product);
         return $this->redirect(['site/view/','id'=>$user_check]);
     } 
     
     public function actionDeleteOrder($id)
     {
-        $this->isBlock();
+        
         Yii::$app->db->createCommand('UPDATE `Order` SET `status` =1 WHERE id ='.$id)->execute();
         return $this->redirect(['site/order/','id'=>Yii::$app->user->id]);
     } 
 
     public function actionSettings($id)
     {
-        $this->isBlock();
+        
         $user_one = User_fv::findOne($id);
         if(!$user_one)
             throw new \yii\web\NotFoundHttpException("Користувач не знайдений");
@@ -200,7 +206,7 @@ class SiteController extends Controller
     //new
       public function actionSetImage($id)
     {
-        $this->isBlock();
+        
         $user = new User_fv;
         if (Yii::$app->request->isPost)
         {
@@ -218,7 +224,7 @@ class SiteController extends Controller
 
     public function actionSetContent($id)
     {
-        $this->isBlock();
+        
         $model = new User_content();;
         if (Yii::$app->request->isPost)
         {
@@ -236,7 +242,7 @@ class SiteController extends Controller
 
     public function actionSetVideo()
     {   
-        $this->isBlock();
+        
         $model = new User_content();
         if(Yii::$app->request->isPost)
         {
@@ -251,7 +257,7 @@ class SiteController extends Controller
 
     public function actionSetVacancy()
     {     
-        $this->isBlock();
+        
         $model = new Vacancy();
         if(Yii::$app->request->isPost)
         {
@@ -276,7 +282,7 @@ class SiteController extends Controller
 
     public function actionRaiting()
     {
-        $this->isBlock();
+        
         $model = new Raiting;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -297,10 +303,15 @@ class SiteController extends Controller
 
     public function actionProductSerch()
     {
-        $this->isBlock();
-        $model = new Product;
-        if(Yii::$app->request->isPost){
-            $model->load(Yii::$app->request->post());
+        $min_price = Product::find()->min('price_product');
+        $max_price = Product::find()->max('price_product');
+        
+        $model = new Product([
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+        ]);
+        if($model->load($_GET)){
+            ;
             $query=$model->getSearch();
         }
         else{
@@ -309,16 +320,21 @@ class SiteController extends Controller
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>6]);
         $products = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+
+
+        
         return $this->render('products',[
             'products'=>$products,
             'pagination'=>$pagination,
-            'model' => $model
-            ]);
+            'model' => $model,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+        ]);
     }
 //new
     public function actionSetProduct()
     {
-        $this->isBlock();
+        
         $model = new Product();
         if(Yii::$app->request->isAjax)
         {
@@ -368,7 +384,7 @@ class SiteController extends Controller
 
     public function actionVacancy()
     {
-        $this->isBlock();
+        
         $model = new Vacancy;
         if(Yii::$app->request->isPost){
             $model->load(Yii::$app->request->post());
@@ -391,7 +407,7 @@ class SiteController extends Controller
 
     public function actionDeleteContent($id)
     {
-        $this->isBlock();
+        
         $content = User_content::find()->where(['id'=>$id])->one();
         $content->delete();
 
@@ -399,7 +415,7 @@ class SiteController extends Controller
     }
     public function actionDeleteVacancy($id)
     {
-        $this->isBlock();
+        
         $content = Vacancy::find()->where(['id'=>$id])->one();
         $content->delete();
 
@@ -408,7 +424,7 @@ class SiteController extends Controller
 
     public function actionDeleteProduct($id)
     {
-        $this->isBlock();
+        
         $prod = Product::find()->where(['id'=>$id])->one();
         Order::deleteAll(['id_product' => $id]);
         $prod->delete();
@@ -420,7 +436,7 @@ class SiteController extends Controller
 
     public function actionTalking()
     {
-        $this->isBlock();
+        
         $query = Talking::find();
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>3]);
@@ -433,7 +449,7 @@ class SiteController extends Controller
 
     public function actionComplaint($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason,$url)
     {
-        $this->isBlock();
+        
         $model = new Complaint();
         $model->setCompl($user_setter,$user_getter,$content,$vacancy,$talk,$coment,$product,$reason);
         return $this->redirect([$url]);
@@ -441,7 +457,7 @@ class SiteController extends Controller
     }
     public function actionViewTalking($id)
     {
-        $this->isBlock();
+        
        $model = new Coment();
        $talking = Talking::findOne($id);
        $compl = new Complaint();
@@ -465,7 +481,7 @@ class SiteController extends Controller
     }
     public function actionSetTalking()
     {     
-        $this->isBlock();
+        
         $model = new Talking();
         if(Yii::$app->request->isPost)
         {
@@ -479,7 +495,6 @@ class SiteController extends Controller
     }
     public function actionMyTalking()
     {    
-        $this->isBlock();
         $query = Talking::find()->where(['user_create'=>Yii::$app->user->id]);
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count,'pageSize'=>4]);

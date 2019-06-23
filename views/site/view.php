@@ -49,23 +49,28 @@ use yii\helpers\Json;
                                        href="<?= Url::toRoute(['map/view-points', 'id' => Yii::$app->user->id]); ?>">Мої
                                         локації</a>
                                 <?php endif; ?>
-                                <div id="mark">
-                                    <span  onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;"  class="fa fa-star checked"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="6one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="7one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="8one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="9one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
-                                    <br/>
+                                <? if(Yii::$app->user->identity->type == "Користувач" && $user_one->type != "Користувач" && $user_one->id != Yii::$app->user->identity->id) { ?>
+                                    <div id="mark">
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;"  class="fa fa-star checked"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="6one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="7one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="8one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <span onmouseover="starmark(this)" onclick="starmark(this)" id="9one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                        <br/>
                                     </div>
+                                <? } ?>
+
+                                <? if($user_one->type != "Користувач") { ?>
                                      <div class="rating">  
                                                     <h2>Рейтинг</h2>
                                         <img src="/img/logo/chart.png">
                                          <p id=""><?= number_format($user_one->mark, 2, '.', '')?></p>
                                      </div>
+                                <? } ?>
                                 <?php if (Yii::$app->user->id !== $user_one->id): ?>
                                     <?php echo ButtonDropdown::widget([
                                         'label' => 'Поскаржитись',
