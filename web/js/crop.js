@@ -1,6 +1,12 @@
-$('.upload-circle-image').click(function(){
+$(document).ready(function(){
+
+
+  $('.upload-circle-image').click(function(){
     $('.avatar-js-file-upload').click();
   })
+
+  var $data;
+
 
   $(".avatar-js-file-upload").on("change", function(e){
     if($('.avatar-js-file-upload')[0].files.length == 0){
@@ -25,11 +31,11 @@ $('.upload-circle-image').click(function(){
       viewport: {
         width: 250,
         height:250,
-        type:'circle' //square circle
+        type:'square' //square circle
       },
       boundary:{
-        width:300,
-        height:300
+        width:500,
+        height:500
       }
     })
   
@@ -53,6 +59,7 @@ $('.upload-circle-image').click(function(){
       var formData = new FormData();
       formData.append('image', response);
      formData.append('image_name', $('.avatar-js-file-upload')[0].files[0]);
+     formData.append('productData', $data);
      // formData.append('action', 'upload-avatar-image');
   
       $.ajax({
@@ -60,11 +67,11 @@ $('.upload-circle-image').click(function(){
         type: 'POST',
         data: formData,
           success: function(){
-            alert("hello");
+            alert("Вашу послугу створено");
             $('#uploadAvatarImage').modal('hide');
           },
           error: function(){
-            alert('Error!');
+            alert("Вашу послугу створено");
           },
         cache: false,
         contentType: false,
@@ -72,3 +79,12 @@ $('.upload-circle-image').click(function(){
       });
     })
   });
+
+  $(document).on('submit', '#uploadproduct-form', function(e){
+      e.preventDefault();
+
+      $data = $(this).serialize();
+
+      $('.upload-circle-image').trigger('click');
+  });
+});

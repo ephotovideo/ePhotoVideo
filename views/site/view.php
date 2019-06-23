@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\ButtonDropdown;
+use yii\helpers\Json;
 
 ?>
 
@@ -44,7 +45,28 @@ use yii\bootstrap\ButtonDropdown;
                                     <a class="add_to_cart_button"
                                        href="<?= Url::toRoute(['site/order', 'id' => Yii::$app->user->id]); ?>">Мої
                                         замовлення</a>
+
+                                        <a class="add_to_cart_button"
+                                       href="<?= Url::toRoute(['map/view-points', 'id' => Yii::$app->user->id]); ?>">Мої
+                                        локації</a>
                                 <?php endif; ?>
+                                <div id="mark">
+                                    <span  onmouseover="starmark(this)" onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;"  class="fa fa-star checked"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"  style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="6one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="7one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="8one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <span onmouseover="starmark(this)" onclick="starmark(this)" id="9one"  style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                                    <br/>
+                                    </div>
+                                     <div class="rating">  
+                                                    <h2>Рейтинг</h2>
+                                        <img src="/img/logo/chart.png">
+                                         <p id=""><?= number_format($user_one->mark, 2, '.', '')?></p>
+                                     </div>
                                 <?php if (Yii::$app->user->id !== $user_one->id): ?>
                                     <?php echo ButtonDropdown::widget([
                                         'label' => 'Поскаржитись',
@@ -149,7 +171,7 @@ use yii\bootstrap\ButtonDropdown;
 
                 <div id="products">
                     <?php foreach($products as $product):?>
-                        <div class="col-md-3">
+                        <div class="col-lg-4">
                             <div class="single-product">
                                 <div class="product-f-image">
                                     <div class="picture">
@@ -168,7 +190,7 @@ use yii\bootstrap\ButtonDropdown;
                                 </div>
 
                                 <h2><a href=""><?= $product->name_product ?></a></h2>
-
+                                <p id="type"><?= $product->city ?></p>
                                 <div class="product-carousel-price">
                                     <ins>$<?= $product->price_product ?></ins>
                                 </div>
@@ -270,9 +292,50 @@ use yii\bootstrap\ButtonDropdown;
 
     <?php endif; ?>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
         $(function () {
             $("#tabs").tabs();
         });
     </script>
+    <script>
+var count;
+var getter = <?php  echo JSON::encode($user_one)?>;
+var setter = <?php  echo Yii::$app->user->id?>;
+
+function starmark(item)
+{
+count=item.id[0];
+sessionStorage.starRating = count;
+var subid= item.id.substring(1);
+for(var i=0;i<11;i++)
+{
+if(i<count)
+{
+document.getElementById((i+1)+subid).style.color="orange";
+}
+else
+{
+document.getElementById((i+1)+subid).style.color="black";
+}
+
+
+}
+}
+$( "#mark" ).click(function() {
+        $.ajax({
+            url: "/site/set-mark?id_user_set="+setter+"&id_user_get="+getter.id,
+            type: 'POST',
+            data: {'count' :count},
+            success: function(){
+                alert('Ви оцінили коритсувача!');
+            },
+            error: function(){
+                alert('Error!');
+            },
+            cache: false
+        })
+
+});
+</script>

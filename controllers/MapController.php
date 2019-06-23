@@ -109,6 +109,23 @@ class MapController extends Controller
     return $this->redirect(['index']);
     }
 
+    public function actionViewPoints($id)
+    {
+        $points = Point::find($id_point)->all();
+        return $this->render('own',
+        [
+            'points'=> $points,
+        ]);
+    }
+
+    public function actionDeletePoint($id)
+    {
+        $point = Point::find()->where(['id'=>$id])->one();
+        $point->delete();
+
+        return $this->redirect(['map/view-points', 'id' => Yii::$app->user->id]);
+    }
+
 
 }
 ?>
