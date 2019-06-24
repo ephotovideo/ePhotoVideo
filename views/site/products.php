@@ -101,7 +101,6 @@ use yii\widgets\ActiveForm;
                                         <div class="price-info product-inner-price">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <img src="/img/logo/pen.png">
                                                     <span class="d-inline-block text-truncate" style="max-width: 150px;">
                                                     <img width="50px" src="<?= $product->user_fv->getImage() ?>">
                                                     <h2>
